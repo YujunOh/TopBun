@@ -1,17 +1,7 @@
-import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
-import { PrismaLibSql } from '@prisma/adapter-libsql';
-import { createClient } from '@libsql/client';
-
-const libsql = createClient({
-  url: process.env.DATABASE_URL || 'file:./dev.db'
-});
-
-const adapter = new PrismaLibSql(libsql);
-const prisma = new PrismaClient({ adapter });
+const prisma = new PrismaClient();
 
 async function main() {
-  // Delete existing data
   await prisma.review.deleteMany();
   await prisma.burger.deleteMany();
 
@@ -23,7 +13,7 @@ async function main() {
     { name: '쉑버거', nameEn: 'ShackBurger', brand: '쉐이크쉑', brandEn: 'Shake Shack', description: '앵거스 비프 패티와 쉑소스', descriptionEn: 'Angus beef patty with ShackSauce', category: 'premium' },
     { name: '치즈버거', nameEn: 'Cheeseburger', brand: '파이브가이즈', brandEn: 'Five Guys', description: '신선한 재료로 만든 수제 치즈버거', descriptionEn: 'Fresh handmade cheeseburger', category: 'premium' },
     { name: 'NBB 시그니처', nameEn: 'NBB Signature', brand: '노브랜드버거', brandEn: 'No Brand Burger', description: '가성비 최고의 시그니처 버거', descriptionEn: 'Best value signature burger', category: 'korean' },
-    { name: '다운타우너 클래식', nameEn: 'Downtowner Classic', brand: '다운타우너', brandEn: 'Downtowner', description: '서울 대표 수제버거', descriptionEn: 'Seoul\'s signature handmade burger', category: 'handmade' },
+    { name: '다운타우너 클래식', nameEn: 'Downtowner Classic', brand: '다운타우너', brandEn: 'Downtowner', description: '서울 대표 수제버거', descriptionEn: "Seoul's signature handmade burger", category: 'handmade' },
     { name: '버거보이 스매시', nameEn: 'Burger Boy Smash', brand: '버거보이', brandEn: 'Burger Boy', description: '스매시 패티의 정석', descriptionEn: 'The standard of smash patties', category: 'handmade' },
     { name: '매드포갈릭 버거', nameEn: 'Mad for Garlic Burger', brand: '매드포갈릭', brandEn: 'Mad for Garlic', description: '마늘 소스가 일품인 수제버거', descriptionEn: 'Handmade burger with garlic sauce', category: 'handmade' },
     { name: '슈퍼두퍼 치즈', nameEn: 'Super Duper Cheese', brand: '슈퍼두퍼', brandEn: 'Super Duper', description: '더블 치즈의 진한 맛', descriptionEn: 'Rich double cheese flavor', category: 'handmade' },

@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Burger {
+  id            Int       @id @default(autoincrement())
+  name          String
+  nameEn        String?
+  brand         String
+  brandEn       String?
+  description   String?
+  descriptionEn String?
+  imageUrl      String    @default("/images/default-burger.svg")
+  eloRating     Float     @default(1200)
+  lastEloDelta  Float     @default(0)
+  matchCount    Int       @default(0)
+  category      String    @default("classic")
+  createdAt     DateTime  @default(now())
+  reviews       Review[]
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  author    String
+  rating    Int
+  content   String
+  burgerId  Int
+  burger    Burger   @relation(fields: [burgerId], references: [id])
+  createdAt DateTime @default(now())
+}
