@@ -1,0 +1,124 @@
+{
+  "common": {
+    "title": "TopBun",
+    "subtitle": "Korea's #1 Burger Community",
+    "comingSoon": "Coming Soon"
+  },
+  "nav": {
+    "home": "Home",
+    "reviews": "Reviews",
+    "rankings": "Rankings",
+    "worldcup": "World Cup",
+    "tierlist": "Tier List",
+    "builder": "Builder"
+  },
+  "home": {
+    "heroTitle": "Korea's #1 Burger Community",
+    "heroSubtitle": "Reviews, Rankings, World Cup — Everything About Burgers",
+    "cta": "Get Started",
+    "stats": {
+      "burgers": "Burgers",
+      "reviews": "Reviews",
+      "matches": "Matches"
+    },
+    "features": {
+      "review": "Burger Reviews",
+      "reviewDesc": "Share your honest burger reviews",
+      "ranking": "Rankings",
+      "rankingDesc": "ELO-based real-time rankings",
+      "worldcup": "World Cup",
+      "worldcupDesc": "Find your favorite burger",
+      "tierlist": "Tier List",
+      "tierlistDesc": "Classify burgers from S to F tier",
+      "builder": "Burger Builder",
+      "builderDesc": "Build your dream burger",
+      "i18n": "Multilingual",
+      "i18nDesc": "Korean/English support"
+    }
+  },
+  "review": {
+    "title": "Burger Reviews",
+    "addBurger": "Add Burger",
+    "writeReview": "Write Review",
+    "noReviews": "No reviews",
+    "rating": "Rating",
+    "submit": "Submit",
+    "filter": {
+      "all": "All",
+      "classic": "Classic",
+      "premium": "Premium",
+      "handmade": "Handmade",
+      "korean": "Korean-style"
+    },
+    "form": {
+      "name": "Burger Name",
+      "nameEn": "English Name",
+      "brand": "Brand",
+      "brandEn": "English Brand",
+      "description": "Description",
+      "descriptionEn": "English Description",
+      "imageUrl": "Image URL",
+      "category": "Category",
+      "content": "Review Content"
+    }
+  },
+  "ranking": {
+    "title": "ELO Rankings",
+    "rank": "Rank",
+    "burger": "Burger",
+    "brand": "Brand",
+    "elo": "ELO",
+    "matches": "Matches",
+    "change": "Change"
+  },
+  "worldcup": {
+    "title": "Burger World Cup",
+    "subtitle": "Find your favorite burger",
+    "round16": "Round of 16",
+    "round8": "Quarterfinals",
+    "round4": "Semifinals",
+    "start": "Start",
+    "addBurger": "Add Burger",
+    "quickAdd": "Quick Add",
+    "name": "Name",
+    "imageUrl": "Image URL",
+    "winner": "Winner!",
+    "congratulations": "Congratulations!",
+    "playAgain": "Play Again",
+    "notEnough": "Need at least 4 burgers",
+    "vs": "VS"
+  },
+  "tierlist": {
+    "title": "Tier List Maker",
+    "subtitle": "Drag burgers to assign their tier",
+    "unranked": "Unranked"
+  },
+  "builder": {
+    "title": "Burger Builder",
+    "subtitle": "Build your dream burger",
+    "palette": "Ingredients",
+    "stack": "My Burger",
+    "ingredients": {
+      "bun-top": "Top Bun",
+      "lettuce": "Lettuce",
+      "tomato": "Tomato",
+      "cheese": "Cheese",
+      "beef-patty": "Beef Patty",
+      "chicken-patty": "Chicken Patty",
+      "bacon": "Bacon",
+      "onion": "Onion",
+      "bun-bottom": "Bottom Bun"
+    },
+    "complete": "Complete!",
+    "burgerName": "Burger Name",
+    "reset": "Reset"
+  },
+  "auth": {
+    "guest": "Guest",
+    "enterName": "Enter your name",
+    "welcome": "Welcome!",
+    "name": "Nickname",
+    "confirm": "Confirm",
+    "logout": "Logout"
+  }
+}
