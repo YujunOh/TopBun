@@ -93,32 +93,40 @@
     "subtitle": "Drag burgers to assign their tier",
     "unranked": "Unranked"
   },
-  "builder": {
-    "title": "Burger Builder",
-    "subtitle": "Build your dream burger",
-    "palette": "Ingredients",
-    "stack": "My Burger",
-    "ingredients": {
-      "bun-top": "Top Bun",
-      "lettuce": "Lettuce",
-      "tomato": "Tomato",
-      "cheese": "Cheese",
-      "beef-patty": "Beef Patty",
-      "chicken-patty": "Chicken Patty",
-      "bacon": "Bacon",
-      "onion": "Onion",
-      "bun-bottom": "Bottom Bun"
-    },
-    "complete": "Complete!",
-    "burgerName": "Burger Name",
-    "reset": "Reset"
-  },
-  "auth": {
-    "guest": "Guest",
-    "enterName": "Enter your name",
-    "welcome": "Welcome!",
-    "name": "Nickname",
-    "confirm": "Confirm",
-    "logout": "Logout"
-  }
-}
+   "builder": {
+     "title": "Burger Builder",
+     "subtitle": "Build your dream burger",
+     "palette": "Ingredients",
+     "stack": "My Burger",
+     "ingredients": {
+       "bun-top": "Top Bun",
+       "lettuce": "Lettuce",
+       "tomato": "Tomato",
+       "cheese": "Cheese",
+       "beef-patty": "Beef Patty",
+       "chicken-patty": "Chicken Patty",
+       "bacon": "Bacon",
+       "onion": "Onion",
+       "bun-bottom": "Bottom Bun"
+     },
+     "complete": "Complete!",
+     "burgerName": "Burger Name",
+     "reset": "Reset",
+     "emptyStack": "Drag ingredients here"
+   },
+   "auth": {
+     "guest": "Guest",
+     "enterName": "Enter your name",
+     "welcome": "Welcome!",
+     "name": "Nickname",
+     "confirm": "Confirm",
+     "logout": "Logout"
+   },
+   "error": {
+     "title": "Something went wrong",
+     "tryAgain": "Try again"
+   },
+   "notFound": {
+     "title": "Page not found"
+   }
+ }

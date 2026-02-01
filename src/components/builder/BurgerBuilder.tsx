@@ -302,11 +302,11 @@ export function BurgerBuilder() {
                   : 'border-white/20 bg-surface'
               }`}
             >
-              {stack.length === 0 && (
-                <p className="m-auto text-sm text-text-muted">
-                  Drag ingredients here
-                </p>
-              )}
+               {stack.length === 0 && (
+                 <p className="m-auto text-sm text-text-muted">
+                   {t('emptyStack')}
+                 </p>
+               )}
               {stack.map((item) => (
                 <StackIngredient
                   key={item.id}

@@ -92,8 +92,8 @@ export default function WorldcupPlayPage() {
   // --- Match play ---
   if (!match) return null;
 
-  return (
-    <div className="mx-auto max-w-4xl px-4 py-10">
+   return (
+     <div className="relative mx-auto max-w-4xl px-4 py-10">
       {/* Progress */}
       <div className="mb-8 text-center">
         <span className="rounded-full bg-surface px-4 py-2 text-sm font-bold text-text-muted">

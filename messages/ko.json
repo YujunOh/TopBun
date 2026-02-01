@@ -93,32 +93,40 @@
     "subtitle": "버거를 드래그하여 티어에 배치하세요",
     "unranked": "미분류"
   },
-  "builder": {
-    "title": "버거 빌더",
-    "subtitle": "나만의 드림 버거를 만들어보세요",
-    "palette": "재료",
-    "stack": "내 버거",
-    "ingredients": {
-      "bun-top": "번 (위)",
-      "lettuce": "양상추",
-      "tomato": "토마토",
-      "cheese": "치즈",
-      "beef-patty": "소고기 패티",
-      "chicken-patty": "치킨 패티",
-      "bacon": "베이컨",
-      "onion": "양파",
-      "bun-bottom": "번 (아래)"
-    },
-    "complete": "완성!",
-    "burgerName": "버거 이름",
-    "reset": "초기화"
-  },
-  "auth": {
-    "guest": "게스트",
-    "enterName": "이름을 입력하세요",
-    "welcome": "환영합니다!",
-    "name": "닉네임",
-    "confirm": "확인",
-    "logout": "로그아웃"
-  }
-}
+   "builder": {
+     "title": "버거 빌더",
+     "subtitle": "나만의 드림 버거를 만들어보세요",
+     "palette": "재료",
+     "stack": "내 버거",
+     "ingredients": {
+       "bun-top": "번 (위)",
+       "lettuce": "양상추",
+       "tomato": "토마토",
+       "cheese": "치즈",
+       "beef-patty": "소고기 패티",
+       "chicken-patty": "치킨 패티",
+       "bacon": "베이컨",
+       "onion": "양파",
+       "bun-bottom": "번 (아래)"
+     },
+     "complete": "완성!",
+     "burgerName": "버거 이름",
+     "reset": "초기화",
+     "emptyStack": "재료를 여기에 드래그하세요"
+   },
+   "auth": {
+     "guest": "게스트",
+     "enterName": "이름을 입력하세요",
+     "welcome": "환영합니다!",
+     "name": "닉네임",
+     "confirm": "확인",
+     "logout": "로그아웃"
+   },
+   "error": {
+     "title": "문제가 발생했습니다",
+     "tryAgain": "다시 시도"
+   },
+   "notFound": {
+     "title": "페이지를 찾을 수 없습니다"
+   }
+ }
