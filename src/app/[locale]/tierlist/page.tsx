@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { getLocale } from 'next-intl/server';
-import { TierBoard } from '@/components/tierlist/TierBoard';
+import { TierBoardClient } from '@/components/tierlist/TierBoardClient';
 
 export default async function TierlistPage() {
   const locale = await getLocale();
@@ -15,5 +15,5 @@ export default async function TierlistPage() {
     imageUrl: b.imageUrl,
   }));
 
-  return <TierBoard burgers={dto} />;
+  return <TierBoardClient burgers={dto} />;
 }
