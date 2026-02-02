@@ -31,5 +31,28 @@ model Review {
   content   String
   burgerId  Int
   burger    Burger   @relation(fields: [burgerId], references: [id])
+  userId    Int?
+  user      User?    @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String?
+  email      String?  @unique
+  image      String?
+  provider   String
+  providerId String
+  createdAt  DateTime @default(now())
+  reviews    Review[]
+
+  @@unique([provider, providerId])
+}
+
+model CommunityPost {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  author    String
   createdAt DateTime @default(now())
 }

@@ -22,6 +22,15 @@ async function main() {
     { name: '리치 치즈버거', nameEn: 'Rich Cheeseburger', brand: '맘스터치', brandEn: "Mom's Touch", description: '진한 치즈소스의 버거', descriptionEn: 'Burger with rich cheese sauce', category: 'korean' },
     { name: '브루클린 버거', nameEn: 'Brooklyn Burger', brand: '브루클린 더 버거 조인트', brandEn: 'Brooklyn The Burger Joint', description: '뉴욕 스타일 수제버거', descriptionEn: 'New York style handmade burger', category: 'handmade' },
     { name: '스모크하우스 버거', nameEn: 'Smokehouse Burger', brand: '자니로켓츠', brandEn: "Johnny Rockets", description: '스모키한 풍미의 클래식 버거', descriptionEn: 'Smoky flavored classic burger', category: 'premium' },
+    { name: '1955 버거', nameEn: '1955 Burger', brand: '맥도날드', brandEn: "McDonald's", description: '두툼한 패티와 스모키한 소스', descriptionEn: 'Thick patty with smoky sauce', category: 'classic' },
+    { name: '맥스파이시 상하이 버거', nameEn: 'McSpicy Shanghai', brand: '맥도날드', brandEn: "McDonald's", description: '매콤한 치킨 패티의 인기 메뉴', descriptionEn: 'Spicy chicken patty favorite', category: 'korean' },
+    { name: '치즈와퍼', nameEn: 'Cheese Whopper', brand: '버거킹', brandEn: 'Burger King', description: '치즈가 더해진 클래식 와퍼', descriptionEn: 'Classic Whopper with cheese', category: 'classic' },
+    { name: '몬스터X', nameEn: 'Monster X', brand: '버거킹', brandEn: 'Burger King', description: '패티와 치즈가 두 겹인 묵직한 버거', descriptionEn: 'Double patty and cheese heavyweight burger', category: 'premium' },
+    { name: '징거버거', nameEn: 'Zinger Burger', brand: 'KFC', brandEn: 'KFC', description: '매콤한 치킨 패티의 시그니처', descriptionEn: 'Signature spicy chicken patty', category: 'korean' },
+    { name: '모짜렐라 인 더 버거', nameEn: 'Mozzarella In The Burger', brand: '롯데리아', brandEn: 'Lotteria', description: '모짜렐라 치즈가 들어간 대표 버거', descriptionEn: 'Signature burger with mozzarella', category: 'korean' },
+    { name: '인크레더블 버거', nameEn: 'Incredible Burger', brand: '맘스터치', brandEn: "Mom's Touch", description: '패티와 베이컨이 풍부한 버거', descriptionEn: 'Rich patty and bacon burger', category: 'korean' },
+    { name: '스모크쉑', nameEn: 'SmokeShack', brand: '쉐이크쉑', brandEn: 'Shake Shack', description: '베이컨과 체리 페퍼가 들어간 버거', descriptionEn: 'Burger with bacon and cherry peppers', category: 'premium' },
+    { name: 'NBB 어메이징', nameEn: 'NBB Amazing', brand: '노브랜드버거', brandEn: 'No Brand Burger', description: '가성비 좋은 더블 패티 버거', descriptionEn: 'Value double patty burger', category: 'korean' },
   ];
 
   for (const burger of burgers) {
