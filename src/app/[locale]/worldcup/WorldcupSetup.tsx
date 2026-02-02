@@ -13,6 +13,7 @@ const SIZE_KEYS: Record<number, string> = { 16: 'round16', 8: 'round8', 4: 'roun
 export function WorldcupSetup({ burgers }: { burgers: BurgerDTO[] }) {
   const t = useTranslations('worldcup');
   const router = useRouter();
+  const burgerCount = burgers.length;
   const [size, setSize] = useState<number>(
     burgers.length >= 16 ? 16 : burgers.length >= 8 ? 8 : 4,
   );
@@ -34,14 +35,20 @@ export function WorldcupSetup({ burgers }: { burgers: BurgerDTO[] }) {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="mb-2 text-3xl font-bold text-text">{t('title')}</h1>
-      <p className="mb-8 text-text-muted">{t('subtitle')}</p>
+    <div className="mx-auto max-w-4xl px-4 py-10">
+      <div className="mb-8 rounded-3xl bg-surface p-6 text-center">
+        <h1 className="text-3xl font-bold text-text">{t('title')}</h1>
+        <p className="mt-2 text-text-muted">{t('subtitle')}</p>
+        <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-surface-light px-4 py-2 text-sm text-text-muted">
+          {t('count', { count: burgerCount })}
+        </div>
+      </div>
 
       {/* Round selection */}
       {canStart && (
-        <div className="mb-8">
-          <div className="flex gap-3">
+        <div className="mb-8 rounded-2xl bg-surface p-5">
+          <div className="mb-3 text-sm font-semibold text-text-muted">{t('roundSelect')}</div>
+          <div className="flex flex-wrap gap-3">
             {availableSizes.map(s => (
               <button
                 key={s}

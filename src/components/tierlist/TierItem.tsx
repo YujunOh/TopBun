@@ -2,6 +2,7 @@
 
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import Image from 'next/image';
 
 interface TierItemProps {
   id: string;
@@ -23,6 +24,7 @@ export function TierItem({ id, name, imageUrl, burgerId }: TierItemProps) {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    touchAction: 'none',
     opacity: isDragging ? 0.4 : 1,
   };
 
@@ -33,11 +35,13 @@ export function TierItem({ id, name, imageUrl, burgerId }: TierItemProps) {
       {...attributes}
       {...listeners}
       data-testid={`burger-card-${burgerId}`}
-      className="flex flex-col items-center gap-1 rounded-xl bg-surface-light p-2 cursor-grab active:cursor-grabbing select-none"
+      className="flex flex-col items-center gap-1 rounded-xl bg-surface-light p-2 cursor-grab active:cursor-grabbing select-none border border-white/20"
     >
-      <img
-        src={imageUrl}
+      <Image
+        src={imageUrl || '/images/default-burger.svg'}
         alt={name}
+        width={56}
+        height={56}
         className="h-14 w-14 rounded-lg object-cover"
         draggable={false}
       />

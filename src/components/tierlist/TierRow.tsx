@@ -24,13 +24,14 @@ export function TierRow({ tierId, label, color, items, burgerMap }: TierRowProps
   return (
     <div
       data-testid={`tier-${tierId}`}
-      className={`flex border border-white/10 rounded-lg overflow-hidden transition-colors ${
-        isOver ? 'ring-2 ring-primary/50' : ''
+      ref={setNodeRef}
+      className={`flex border-2 border-dashed rounded-2xl overflow-hidden transition-colors ${
+        isOver ? 'border-primary ring-2 ring-primary/40 bg-primary/5' : 'border-white/20 bg-surface/60'
       }`}
     >
       {/* Tier label */}
       <div
-        className={`flex w-16 shrink-0 items-center justify-center text-lg font-extrabold text-white ${color}`}
+        className={`flex w-16 shrink-0 items-center justify-center text-lg font-extrabold text-white ${color} border-r border-white/10`}
       >
         {label}
       </div>
@@ -38,8 +39,7 @@ export function TierRow({ tierId, label, color, items, burgerMap }: TierRowProps
       {/* Droppable area */}
       <SortableContext items={items} strategy={horizontalListSortingStrategy}>
         <div
-          ref={setNodeRef}
-          className="flex min-h-[80px] flex-1 flex-wrap gap-2 bg-surface p-2"
+          className="flex min-h-[110px] flex-1 flex-wrap gap-2 bg-surface p-3"
         >
           {items.map((itemId) => {
             const burger = burgerMap[itemId];

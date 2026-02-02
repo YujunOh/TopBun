@@ -2,6 +2,7 @@ import { getTranslations, getLocale } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { ReviewForm } from './ReviewForm';
+import Image from 'next/image';
 
 export default async function BurgerDetailPage({
   params,
@@ -41,9 +42,11 @@ export default async function BurgerDetailPage({
       {/* Burger Detail */}
       <div className="mb-10 flex flex-col gap-6 rounded-2xl bg-surface p-6 sm:flex-row">
         <div className="aspect-square w-full shrink-0 overflow-hidden rounded-xl bg-bg sm:w-64">
-          <img
-            src={burger.imageUrl}
+          <Image
+            src={burger.imageUrl || '/images/default-burger.svg'}
             alt={displayName}
+            width={600}
+            height={600}
             className="h-full w-full object-cover"
           />
         </div>

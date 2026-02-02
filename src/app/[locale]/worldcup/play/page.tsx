@@ -13,6 +13,7 @@ import {
 } from '@/lib/tournament';
 import type { TournamentState, BurgerDTO } from '@/lib/tournament';
 import Image from 'next/image';
+import { Trophy } from 'lucide-react';
 
 const STORAGE_KEY = 'topbun-worldcup';
 
@@ -42,6 +43,7 @@ export default function WorldcupPlayPage() {
   const round = state.rounds[state.currentRound];
   const matchIndex = state.currentMatch;
   const totalMatches = round ? round.matches.length : 0;
+  const progress = totalMatches > 0 ? ((matchIndex + 1) / totalMatches) * 100 : 0;
 
   function displayName(burger: BurgerDTO) {
     return locale === 'en' && burger.nameEn ? burger.nameEn : burger.name;
@@ -63,9 +65,11 @@ export default function WorldcupPlayPage() {
 
   // --- Winner celebration ---
   if (complete && winner) {
-    return (
+      return (
       <div className="mx-auto flex max-w-2xl flex-col items-center px-4 py-16 text-center">
-        <div className="mb-6 text-6xl">🎉🏆</div>
+        <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+          <Trophy size={36} />
+        </div>
         <h1 className="mb-2 text-3xl font-bold text-text">{t('congratulations')}</h1>
         <div className="my-8 rounded-2xl bg-surface p-8 shadow-lg">
           <div className="relative mx-auto mb-4 h-48 w-48 overflow-hidden rounded-xl">
@@ -93,13 +97,22 @@ export default function WorldcupPlayPage() {
   if (!match) return null;
 
    return (
-     <div className="relative mx-auto max-w-4xl px-4 py-10">
-      {/* Progress */}
-      <div className="mb-8 text-center">
-        <span className="rounded-full bg-surface px-4 py-2 text-sm font-bold text-text-muted">
-          {roundLabel} {matchIndex + 1}/{totalMatches}
-        </span>
-      </div>
+      <div className="relative mx-auto max-w-4xl px-4 py-10">
+        {/* Progress */}
+        <div className="mb-8">
+          <div className="mb-2 flex items-center justify-between text-sm text-text-muted">
+            <span>{roundLabel}</span>
+            <span>
+              {matchIndex + 1}/{totalMatches}
+            </span>
+          </div>
+          <div className="h-2 w-full rounded-full bg-surface-light">
+            <div
+              className="h-2 rounded-full bg-primary transition-all"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
 
       {/* Two cards */}
       <div className="grid grid-cols-2 gap-4 sm:gap-8">

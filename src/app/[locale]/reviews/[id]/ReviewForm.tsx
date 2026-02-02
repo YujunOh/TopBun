@@ -9,12 +9,15 @@ export function ReviewForm({ burgerId, locale }: { burgerId: number; locale: str
   const [rating, setRating] = useState(0);
   const [hoveredStar, setHoveredStar] = useState(0);
   const t = useTranslations('review');
-  const { userName } = useAuth();
+  const { user } = useAuth();
+  const authorName = user?.name || '게스트';
+  const userId = user?.id || '';
 
   return (
     <form action={createReview} className="flex flex-col gap-4">
       <input type="hidden" name="burgerId" value={burgerId} />
-      <input type="hidden" name="author" value={userName || '게스트'} />
+      <input type="hidden" name="author" value={authorName} />
+      <input type="hidden" name="userId" value={userId} />
       <input type="hidden" name="locale" value={locale} />
       <input type="hidden" name="rating" value={rating} />
 

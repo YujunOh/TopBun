@@ -2,6 +2,7 @@ import { getTranslations, getLocale } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
 import { Link } from '@/i18n/navigation';
 import { CategoryFilter } from './CategoryFilter';
+import Image from 'next/image';
 
 export default async function ReviewsPage({
   searchParams,
@@ -67,9 +68,11 @@ export default async function ReviewsPage({
             className="group rounded-2xl bg-surface p-4 transition-transform hover:scale-[1.02] hover:bg-surface-light"
           >
             <div className="relative mb-3 aspect-square overflow-hidden rounded-xl bg-bg">
-              <img
-                src={burger.imageUrl}
+              <Image
+                src={burger.imageUrl || '/images/default-burger.svg'}
                 alt={displayName(burger)}
+                width={300}
+                height={300}
                 className="h-full w-full object-cover"
               />
             </div>

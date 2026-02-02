@@ -8,8 +8,11 @@ import {
   PointerSensor,
   TouchSensor,
   KeyboardSensor,
+  pointerWithin,
+  MeasuringStrategy,
   useSensor,
   useSensors,
+  type CollisionDetection,
   type DragStartEvent,
   type DragOverEvent,
   type DragEndEvent,
@@ -68,10 +71,11 @@ export function TierBoard({ burgers }: { burgers: BurgerDTO[] }) {
 
   // Sensors for pointer, touch, and keyboard
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 5 } }),
+    useSensor(PointerSensor, { activationConstraint: { distance: 1 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 0, tolerance: 5 } }),
     useSensor(KeyboardSensor),
   );
+
 
   // Find which container an item belongs to
   const findContainer = useCallback(
@@ -105,11 +109,14 @@ export function TierBoard({ burgers }: { burgers: BurgerDTO[] }) {
       const overItems = [...prev[overContainer]];
 
       const activeIndex = activeItems.indexOf(active.id as string);
+      if (activeIndex < 0) return prev;
       activeItems.splice(activeIndex, 1);
 
       // Find the index to insert at
       const overIndex = overItems.indexOf(over.id as string);
       const newIndex = overIndex >= 0 ? overIndex : overItems.length;
+
+      if (overItems[newIndex] === active.id) return prev;
 
       overItems.splice(newIndex, 0, active.id as string);
 
@@ -150,6 +157,18 @@ export function TierBoard({ burgers }: { burgers: BurgerDTO[] }) {
 
   const activeBurger = activeId ? burgerMap[activeId] : null;
 
+  const collisionDetection: CollisionDetection = (args) => {
+    const pointerCollisions = pointerWithin(args);
+    if (pointerCollisions.length > 0) return pointerCollisions;
+    return closestCenter(args);
+  };
+
+  const measuring = {
+    droppable: {
+      strategy: MeasuringStrategy.WhileDragging,
+    },
+  };
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <h1 className="mb-2 text-3xl font-bold text-text">{t('title')}</h1>
@@ -157,13 +176,15 @@ export function TierBoard({ burgers }: { burgers: BurgerDTO[] }) {
 
       <DndContext
         sensors={sensors}
-        collisionDetection={closestCenter}
+        collisionDetection={collisionDetection}
+        measuring={measuring}
+        autoScroll={false}
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
         {/* Tier rows */}
-        <div className="mb-8 flex flex-col gap-1">
+        <div className="mb-8 flex flex-col gap-3">
           {TIERS.map((tier) => (
             <TierRow
               key={tier.id}
