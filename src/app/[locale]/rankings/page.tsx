@@ -1,7 +1,6 @@
 import { getTranslations, getLocale } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
-
-const MEDALS = ['🥇', '🥈', '🥉'] as const;
+import { Trophy } from 'lucide-react';
 
 export default async function RankingsPage() {
   const t = await getTranslations('ranking');
@@ -48,7 +47,10 @@ export default async function RankingsPage() {
                 >
                   <td className="px-6 py-4 font-bold text-text">
                     {isTop3 ? (
-                      <span className="text-xl">{MEDALS[rank - 1]}</span>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
+                        <Trophy size={14} />
+                        {rank}
+                      </span>
                     ) : (
                       rank
                     )}

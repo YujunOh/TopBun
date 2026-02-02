@@ -1,7 +1,10 @@
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
+import { auth } from '@/auth';
 
-export default createMiddleware(routing);
+const intlMiddleware = createMiddleware(routing);
+
+export default auth((req) => intlMiddleware(req));
 
 export const config = {
   matcher: [
