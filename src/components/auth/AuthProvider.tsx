@@ -1,38 +1,52 @@
 "use client";
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, ReactNode, useEffect, useState } from 'react';
+import { useSession, signOut } from 'next-auth/react';
+import type { Session } from 'next-auth';
 
 interface AuthContextType {
-  userName: string | null;
-  setUserName: (name: string) => void;
+  session: Session | null;
+  status: 'loading' | 'authenticated' | 'unauthenticated';
+  user: Session['user'] | null;
+  isLoginOpen: boolean;
+  openLogin: () => void;
+  closeLogin: () => void;
+  setLoginOpen: (open: boolean) => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
-  userName: null,
-  setUserName: () => {},
+  session: null,
+  status: 'unauthenticated',
+  user: null,
+  isLoginOpen: false,
+  openLogin: () => {},
+  closeLogin: () => {},
+  setLoginOpen: () => {},
   logout: () => {},
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [userName, setUserNameState] = useState<string | null>(null);
+  const { data: session, status } = useSession();
+  const user = session?.user ?? null;
+  const [isLoginOpen, setLoginOpen] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem('topbun-user');
-    if (stored) setUserNameState(stored);
-  }, []);
+    if (status === 'authenticated') {
+      setLoginOpen(false);
+    }
+  }, [status]);
 
-  const setUserName = (name: string) => {
-    localStorage.setItem('topbun-user', name);
-    setUserNameState(name);
-  };
+  const openLogin = () => setLoginOpen(true);
+  const closeLogin = () => setLoginOpen(false);
 
   const logout = () => {
-    localStorage.removeItem('topbun-user');
-    setUserNameState(null);
+    signOut();
   };
 
   return (
-    <AuthContext.Provider value={{ userName, setUserName, logout }}>
+    <AuthContext.Provider
+      value={{ session, status, user, isLoginOpen, openLogin, closeLogin, setLoginOpen, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
