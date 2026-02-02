@@ -8,13 +8,14 @@
     "home": "홈",
     "reviews": "리뷰",
     "rankings": "랭킹",
-    "worldcup": "이상형 월드컵",
+    "community": "커뮤니티",
+    "worldcup": "버거 월드컵",
     "tierlist": "티어표",
     "builder": "버거 빌더"
   },
   "home": {
     "heroTitle": "대한민국 No.1 버거 커뮤니티",
-    "heroSubtitle": "리뷰, 랭킹, 이상형 월드컵까지 — 버거의 모든 것",
+    "heroSubtitle": "리뷰, 랭킹, 버거 월드컵까지 — 버거의 모든 것",
     "cta": "지금 시작하기",
     "stats": {
       "burgers": "등록된 버거",
@@ -26,7 +27,7 @@
       "reviewDesc": "솔직한 버거 평가를 남겨보세요",
       "ranking": "랭킹",
       "rankingDesc": "ELO 기반 실시간 순위",
-      "worldcup": "이상형 월드컵",
+      "worldcup": "버거 월드컵",
       "worldcupDesc": "나만의 최애 버거 찾기",
       "tierlist": "티어표",
       "tierlistDesc": "S~F 티어로 버거 분류",
@@ -43,6 +44,12 @@
     "noReviews": "리뷰 없음",
     "rating": "별점",
     "submit": "제출",
+    "uploadImage": "이미지 업로드",
+    "dragOrClick": "클릭하거나 드래그하여 업로드",
+    "maxSize": "최대 5MB (JPG, PNG, WEBP)",
+    "uploadError": "업로드 실패",
+    "fileTooLarge": "파일이 너무 큽니다 (최대 5MB)",
+    "invalidType": "지원하지 않는 파일 형식입니다",
     "filter": {
       "all": "전체",
       "classic": "클래식",
@@ -72,8 +79,10 @@
     "change": "변동"
   },
   "worldcup": {
-    "title": "이상형 월드컵",
+    "title": "버거 월드컵",
     "subtitle": "나만의 최애 버거를 찾아보세요",
+    "count": "총 {count}개 버거",
+    "roundSelect": "라운드 선택",
     "round16": "16강",
     "round8": "8강",
     "round4": "4강",
@@ -93,35 +102,83 @@
     "subtitle": "버거를 드래그하여 티어에 배치하세요",
     "unranked": "미분류"
   },
-   "builder": {
-     "title": "버거 빌더",
-     "subtitle": "나만의 드림 버거를 만들어보세요",
-     "palette": "재료",
-     "stack": "내 버거",
-     "ingredients": {
-       "bun-top": "번 (위)",
-       "lettuce": "양상추",
-       "tomato": "토마토",
-       "cheese": "치즈",
-       "beef-patty": "소고기 패티",
-       "chicken-patty": "치킨 패티",
-       "bacon": "베이컨",
-       "onion": "양파",
-       "bun-bottom": "번 (아래)"
-     },
+    "builder": {
+      "title": "버거 빌더",
+      "subtitle": "나만의 드림 버거를 만들어보세요",
+      "palette": "재료",
+      "stack": "내 버거",
+      "defaultName": "나만의 버거",
+      "completeTitle": "버거 완성!",
+      "completeSubtitle": "만든 버거를 자랑해보세요",
+      "summary": "완성 요약",
+      "copyShare": "자랑 문구 복사",
+      "copySuccess": "복사 완료!",
+      "downloadImage": "버거 이미지 저장",
+      "buildAgain": "다시 만들기",
+      "expand": "열기",
+      "collapse": "닫기",
+      "sections": {
+        "buns": "번",
+        "patties": "패티",
+        "cheese": "치즈",
+        "veggies": "야채",
+        "extras": "추가",
+        "sauces": "소스"
+      },
+      "ingredients": {
+        "bun-top": "번 (위)",
+        "lettuce": "양상추",
+        "tomato": "토마토",
+        "cheese": "치즈",
+        "smashed-patty": "스매쉬드 패티",
+        "grilled-patty": "그릴 패티",
+        "chicken-patty": "치킨 패티",
+        "veggie-patty": "베지 패티",
+        "bacon": "베이컨",
+        "onion": "양파",
+        "pickle": "피클",
+        "egg": "계란",
+        "ketchup": "케첩",
+        "mayo": "마요",
+        "mustard": "머스타드",
+        "bbq": "바비큐 소스",
+        "spicy-mayo": "스파이시 마요",
+        "garlic-sauce": "갈릭 소스",
+        "bun-bottom": "번 (아래)"
+      },
      "complete": "완성!",
      "burgerName": "버거 이름",
      "reset": "초기화",
      "emptyStack": "재료를 여기에 드래그하세요"
    },
-   "auth": {
-     "guest": "게스트",
-     "enterName": "이름을 입력하세요",
-     "welcome": "환영합니다!",
-     "name": "닉네임",
-     "confirm": "확인",
-     "logout": "로그아웃"
-   },
+  "auth": {
+      "guest": "게스트",
+      "enterName": "이름을 입력하세요",
+      "welcome": "환영합니다!",
+      "name": "닉네임",
+      "confirm": "확인",
+      "login": "로그인",
+      "loginDescription": "로그인 방법을 선택하세요",
+      "loginWithGoogle": "Google로 로그인",
+      "loginWithGithub": "GitHub로 로그인",
+      "loggingIn": "로그인 중...",
+      "logout": "로그아웃"
+  },
+  "community": {
+    "title": "커뮤니티",
+    "subtitle": "버거 이야기와 소식을 나눠보세요",
+    "recent": "최근 글",
+    "empty": "아직 작성된 글이 없습니다",
+    "by": "작성자: {author}",
+    "back": "커뮤니티로 돌아가기",
+    "form": {
+      "title": "제목",
+      "content": "내용",
+      "titlePlaceholder": "제목을 입력하세요",
+      "contentPlaceholder": "내용을 입력하세요",
+      "submit": "작성하기"
+    }
+  },
    "error": {
      "title": "문제가 발생했습니다",
      "tryAgain": "다시 시도"

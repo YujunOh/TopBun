@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="TopBun mark">
+  <defs>
+    <linearGradient id="bun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8c16b"/>
+      <stop offset="1" stop-color="#c97c2a"/>
+    </linearGradient>
+    <linearGradient id="patty" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7b4a2a"/>
+      <stop offset="1" stop-color="#4b2a18"/>
+    </linearGradient>
+    <linearGradient id="lettuce" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6ecf5b"/>
+      <stop offset="1" stop-color="#3b8f3b"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="48" fill="#fff7e6"/>
+  <rect x="36" y="50" width="184" height="48" rx="24" fill="url(#bun)"/>
+  <rect x="44" y="102" width="168" height="18" rx="9" fill="url(#lettuce)"/>
+  <rect x="44" y="122" width="168" height="14" rx="7" fill="#f6c343"/>
+  <rect x="40" y="140" width="176" height="26" rx="13" fill="url(#patty)"/>
+  <rect x="36" y="170" width="184" height="38" rx="19" fill="#b5652a"/>
+</svg>
