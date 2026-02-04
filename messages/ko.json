@@ -100,7 +100,14 @@
   "tierlist": {
     "title": "티어표 메이커",
     "subtitle": "버거를 드래그하여 티어에 배치하세요",
-    "unranked": "미분류"
+    "unranked": "미분류",
+    "listTitle": "티어표 제목",
+    "listTitlePlaceholder": "내 버거 티어표",
+    "saveImage": "이미지 저장",
+    "share": "공유",
+    "editTierLabel": "티어 이름 수정",
+    "shareCopied": "클립보드에 복사되었습니다!",
+    "saving": "저장 중..."
   },
     "builder": {
       "title": "버거 빌더",
@@ -113,6 +120,8 @@
       "summary": "완성 요약",
       "copyShare": "자랑 문구 복사",
       "copySuccess": "복사 완료!",
+      "share": "공유하기",
+      "shareSuccess": "공유 완료!",
       "downloadImage": "버거 이미지 저장",
       "generateImage": "Gemini로 이미지 생성",
       "promptCopied": "프롬프트 복사됨!",
@@ -164,8 +173,25 @@
       "loginDescription": "로그인 방법을 선택하세요",
       "loginWithGoogle": "Google로 로그인",
       "loginWithGithub": "GitHub로 로그인",
+      "loginWithNaver": "네이버로 로그인",
+      "loginWithKakao": "카카오로 로그인",
       "loggingIn": "로그인 중...",
-      "logout": "로그아웃"
+      "logout": "로그아웃",
+      "email": "이메일",
+      "password": "비밀번호",
+      "passwordConfirm": "비밀번호 확인",
+      "loginTab": "로그인",
+      "registerTab": "회원가입",
+      "register": "가입하기",
+      "orDivider": "또는",
+      "loginError": "로그인에 실패했습니다",
+      "registerError": "회원가입에 실패했습니다",
+      "registerSuccess": "가입이 완료되었습니다!",
+      "passwordMismatch": "비밀번호가 일치하지 않습니다",
+      "emailRequired": "이메일을 입력하세요",
+      "passwordRequired": "비밀번호를 입력하세요",
+      "passwordTooShort": "비밀번호는 6자 이상이어야 합니다",
+      "emailExists": "이미 등록된 이메일입니다"
   },
   "community": {
     "title": "커뮤니티",
@@ -186,8 +212,27 @@
       "content": "내용",
       "titlePlaceholder": "제목을 입력하세요",
       "contentPlaceholder": "내용을 입력하세요",
-      "submit": "작성하기"
-    }
+      "submit": "작성하기",
+      "image": "이미지 첨부",
+      "imagePlaceholder": "이미지를 업로드하세요 (JPG, PNG, WEBP)",
+      "uploading": "업로드 중...",
+      "success": "글이 작성되었습니다!",
+      "error": "작성에 실패했습니다"
+    },
+    "actions": {
+      "edit": "수정",
+      "delete": "삭제",
+      "save": "저장",
+      "cancel": "취소",
+      "confirmDelete": "정말 삭제하시겠습니까?"
+    },
+    "editTitle": "게시글 수정",
+    "editSuccess": "수정되었습니다",
+    "deleteSuccess": "삭제되었습니다",
+    "editError": "수정에 실패했습니다",
+    "deleteError": "삭제에 실패했습니다",
+    "share": "공유",
+    "shareSuccess": "클립보드에 복사되었습니다!"
   },
    "error": {
      "title": "문제가 발생했습니다",

@@ -100,7 +100,14 @@
   "tierlist": {
     "title": "Tier List Maker",
     "subtitle": "Drag burgers to assign their tier",
-    "unranked": "Unranked"
+    "unranked": "Unranked",
+    "listTitle": "Tier list title",
+    "listTitlePlaceholder": "My burger tier list",
+    "editTierLabel": "Edit tier name",
+    "saveImage": "Save image",
+    "share": "Share",
+    "shareCopied": "Link copied!",
+    "saving": "Saving..."
   },
     "builder": {
       "title": "Burger Builder",
@@ -113,6 +120,8 @@
       "summary": "Summary",
       "copyShare": "Copy share text",
       "copySuccess": "Copied!",
+      "share": "Share",
+      "shareSuccess": "Shared!",
       "downloadImage": "Download burger image",
       "generateImage": "Generate with Gemini",
       "promptCopied": "Prompt copied!",
@@ -164,8 +173,25 @@
       "loginDescription": "Choose a sign-in method",
       "loginWithGoogle": "Sign in with Google",
       "loginWithGithub": "Sign in with GitHub",
+      "loginWithNaver": "Sign in with Naver",
+      "loginWithKakao": "Sign in with Kakao",
       "loggingIn": "Signing in...",
-      "logout": "Logout"
+      "logout": "Logout",
+      "email": "Email",
+      "password": "Password",
+      "passwordConfirm": "Confirm password",
+      "loginTab": "Sign in",
+      "registerTab": "Register",
+      "register": "Register",
+      "orDivider": "or",
+      "loginError": "Sign in failed",
+      "registerError": "Registration failed",
+      "registerSuccess": "Registration complete!",
+      "passwordMismatch": "Passwords do not match",
+      "emailRequired": "Email is required",
+      "passwordRequired": "Password is required",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "emailExists": "Email already registered"
   },
   "community": {
     "title": "Community",
@@ -186,8 +212,27 @@
       "content": "Content",
       "titlePlaceholder": "Enter a title",
       "contentPlaceholder": "Write your post",
-      "submit": "Post"
-    }
+      "submit": "Post",
+      "image": "Attach image",
+      "imagePlaceholder": "Upload an image (JPG, PNG, WEBP)",
+      "uploading": "Uploading...",
+      "success": "Post created!",
+      "error": "Failed to create post"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "cancel": "Cancel",
+      "confirmDelete": "Are you sure you want to delete this post?"
+    },
+    "editTitle": "Edit your post",
+    "editSuccess": "Post updated",
+    "deleteSuccess": "Post deleted",
+    "editError": "Failed to update post",
+    "deleteError": "Failed to delete post",
+    "share": "Share",
+    "shareSuccess": "Copied to clipboard!"
   },
    "error": {
      "title": "Something went wrong",
