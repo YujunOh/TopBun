@@ -37,14 +37,19 @@ model Review {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  name       String?
-  email      String?  @unique
-  image      String?
-  provider   String
-  providerId String
-  createdAt  DateTime @default(now())
-  reviews    Review[]
+  id                Int       @id @default(autoincrement())
+  name              String?
+  email             String?   @unique
+  image             String?
+  provider          String    @default("credentials")
+  providerId        String    @default("")
+  password          String?
+  emailVerified     DateTime?
+  verificationToken String?
+  createdAt         DateTime  @default(now())
+  reviews           Review[]
+  communityPosts    CommunityPost[]
+  communityComments CommunityComment[]
 
   @@unique([provider, providerId])
 }
@@ -54,7 +59,11 @@ model CommunityPost {
   title     String
   content   String
   author    String
+  imageUrl  String?
+  userId    Int?
+  user      User?    @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   comments  CommunityComment[]
 }
 
@@ -64,5 +73,7 @@ model CommunityComment {
   post      CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
   author    String
   content   String
+  userId    Int?
+  user      User?    @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
 }
