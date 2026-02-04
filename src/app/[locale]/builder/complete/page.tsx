@@ -18,6 +18,7 @@ export default function BuilderCompletePage() {
   const [summary, setSummary] = useState<BuilderSummary | null>(null);
   const [copied, setCopied] = useState(false);
   const [promptCopied, setPromptCopied] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const raw = sessionStorage.getItem(SUMMARY_KEY);
@@ -27,6 +28,12 @@ export default function BuilderCompletePage() {
     }
     setSummary(JSON.parse(raw) as BuilderSummary);
   }, [router]);
+
+  useEffect(() => {
+    if (!toastMessage) return;
+    const timer = setTimeout(() => setToastMessage(null), 2500);
+    return () => clearTimeout(timer);
+  }, [toastMessage]);
 
   const shareText = useMemo(() => {
     if (!summary) return '';
@@ -82,13 +89,19 @@ export default function BuilderCompletePage() {
       y += h + 6;
       return rect;
     });
-    return `<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${totalHeight}" viewBox="0 0 ${width} ${totalHeight}"><rect width="100%" height="100%" fill="#FFF7E6" /><text x="${width / 2}" y="24" text-anchor="middle" font-size="16" font-family="Arial" fill="#3A2D1F">${summary.name}</text>${rects.join('')}</svg>`;
+    return `<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${totalHeight}" viewBox="0 0 ${width} ${totalHeight}"><rect width="100%" height="100%" fill="#FFF7E6" /><text x="${width / 2}" y="24" text-anchor="middle" font-size="16" font-family="Arial" fill="#3A2D1F">${summary.name}</text>${rects.join('\n')}</svg>`;
   }, [layers, summary]);
+
+  const fireToast = (message: string) => {
+    setToastMessage(message);
+    window.dispatchEvent(new CustomEvent('topbun:toast', { detail: { message } }));
+  };
 
   async function handleCopy() {
     try {
       await navigator.clipboard.writeText(shareText);
       setCopied(true);
+      fireToast(t('copySuccess'));
       setTimeout(() => setCopied(false), 1500);
     } catch {
       setCopied(false);
@@ -98,16 +111,50 @@ export default function BuilderCompletePage() {
   async function handleOpenGemini() {
     if (!summary) return;
 
-    const layerList = summary.layers.map((layer) => layer.label).join(', ');
-    const prompt = `A realistic studio photo of a gourmet burger named "${summary.name}". Ingredients stacked in order: ${layerList}. Warm lighting, shallow depth of field, appetizing, no text, no logo.`;
+    const prompt = `Create a hyper-realistic, mouth-watering studio photograph of a custom gourmet burger called "${summary.name}".
+
+The burger is built with these layers from top to bottom:
+${summary.layers
+      .map((layer, index) => `${index + 1}. ${layer.label}`)
+      .join('\n')}
+
+Style requirements:
+- Professional food photography with warm, golden lighting
+- Shallow depth of field with bokeh background
+- Each ingredient should be clearly visible and identifiable
+- The burger name "${summary.name}" should appear as elegant text overlay in the corner
+- Steam rising from the patty
+- Sesame seeds on the bun if applicable
+- No logos, no watermarks
+- 4K quality, appetizing presentation`;
 
     try {
       await navigator.clipboard.writeText(prompt);
       setPromptCopied(true);
+      fireToast(t('geminiGuide'));
       setTimeout(() => setPromptCopied(false), 3000);
       window.open('https://gemini.google.com/', '_blank');
     } catch {
       setPromptCopied(false);
+    }
+  }
+
+  async function handleShare() {
+    if (!summary) return;
+    const url = window.location.href;
+    const payload = { title: summary.name, text: shareText, url };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(payload);
+        fireToast(t('shareSuccess'));
+        return;
+      }
+
+      await navigator.clipboard.writeText(`${shareText}\n${url}`);
+      fireToast(t('copySuccess'));
+    } catch {
+      return;
     }
   }
 
@@ -126,8 +173,10 @@ export default function BuilderCompletePage() {
             />
           ))}
         </div>
-        {promptCopied && (
-          <p className="mt-3 text-sm text-accent font-semibold">{t('geminiGuide')}</p>
+        {toastMessage && (
+          <div className="mt-4 rounded-2xl border border-accent/40 bg-accent/15 px-4 py-3 text-sm font-semibold text-accent">
+            {toastMessage}
+          </div>
         )}
         <h1 className="mt-6 text-3xl font-bold text-text">{t('completeTitle')}</h1>
         <p className="mt-2 text-text-muted">{t('completeSubtitle')}</p>
@@ -150,6 +199,14 @@ export default function BuilderCompletePage() {
             aria-label="Copy burger recipe to clipboard"
           >
             {copied ? t('copySuccess') : t('copyShare')}
+          </button>
+          <button
+            type="button"
+            onClick={handleShare}
+            className="rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-text hover:bg-surface-light"
+            aria-label="Share burger summary"
+          >
+            {t('share')}
           </button>
           <button
             type="button"
