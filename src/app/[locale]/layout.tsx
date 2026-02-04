@@ -10,6 +10,7 @@ import { AuthSessionProvider } from '@/components/auth/SessionProvider';
 import { Navbar } from '@/components/nav/Navbar';
 import { Footer } from '@/components/nav/Footer';
 import { LoginModal } from '@/components/auth/LoginModal';
+import { Toaster } from 'sonner';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,6 +68,7 @@ export default async function LocaleLayout({
             <AuthProvider>
               <Navbar />
               <LoginModal />
+              <Toaster position="bottom-center" richColors />
               <main className="flex-1">
                 {children}
               </main>
