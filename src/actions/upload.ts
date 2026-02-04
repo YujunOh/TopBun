@@ -1,15 +1,15 @@
 'use server';
 
-import { nanoid } from 'nanoid';
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
+import { v2 as cloudinary } from 'cloudinary';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const MAX_SIZE = 5 * 1024 * 1024;
-const ALLOWED_TYPES = new Map([
-  ['image/jpeg', 'jpg'],
-  ['image/png', 'png'],
-  ['image/webp', 'webp'],
-]);
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
 
 export async function uploadImage(formData: FormData) {
   const file = formData.get('file');
@@ -18,7 +18,7 @@ export async function uploadImage(formData: FormData) {
     return { error: 'uploadError' } as const;
   }
 
-  if (!ALLOWED_TYPES.has(file.type)) {
+  if (!ALLOWED_TYPES.includes(file.type)) {
     return { error: 'invalidType' } as const;
   }
 
@@ -26,15 +26,34 @@ export async function uploadImage(formData: FormData) {
     return { error: 'fileTooLarge' } as const;
   }
 
-  const extension = ALLOWED_TYPES.get(file.type) ?? 'jpg';
-  const filename = `${nanoid(10)}.${extension}`;
-  const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-  const filePath = path.join(uploadDir, filename);
+  try {
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
 
-  await fs.mkdir(uploadDir, { recursive: true });
+    const result = await new Promise<{ secure_url: string; public_id: string }>(
+      (resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream(
+            {
+              resource_type: 'image',
+              folder: 'topbun',
+              transformation: [
+                { width: 1200, height: 1200, crop: 'limit' },
+                { quality: 'auto', fetch_format: 'auto' },
+              ],
+            },
+            (error, result) => {
+              if (error || !result) reject(error ?? new Error('Upload failed'));
+              else resolve(result as { secure_url: string; public_id: string });
+            },
+          )
+          .end(buffer);
+      },
+    );
 
-  const arrayBuffer = await file.arrayBuffer();
-  await fs.writeFile(filePath, Buffer.from(arrayBuffer));
-
-  return { url: `/uploads/${filename}` } as const;
+    return { url: result.secure_url } as const;
+  } catch (error) {
+    console.error('Cloudinary upload failed:', error);
+    return { error: 'uploadError' } as const;
+  }
 }
