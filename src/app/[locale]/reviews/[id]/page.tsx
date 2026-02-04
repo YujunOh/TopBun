@@ -3,6 +3,51 @@ import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { ReviewForm } from './ReviewForm';
 import Image from 'next/image';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string; locale: string }>;
+}): Promise<Metadata> {
+  const { id, locale } = await params;
+  
+  const burger = await prisma.burger.findUnique({
+    where: { id: parseInt(id) },
+    include: { reviews: true },
+  });
+
+  if (!burger) {
+    return {
+      title: 'Burger Not Found',
+      description: 'The requested burger could not be found.',
+    };
+  }
+
+  const displayName = locale === 'en' && burger.nameEn ? burger.nameEn : burger.name;
+  const displayBrand = locale === 'en' && burger.brandEn ? burger.brandEn : burger.brand;
+  const displayDesc = locale === 'en' && burger.descriptionEn ? burger.descriptionEn : burger.description;
+  const avgRating = burger.reviews.length > 0
+    ? burger.reviews.reduce((sum, r) => sum + r.rating, 0) / burger.reviews.length
+    : 0;
+
+  return {
+    title: `${displayName} - ${displayBrand} | TopBun`,
+    description: displayDesc || `${displayName} from ${displayBrand}. Average rating: ${avgRating.toFixed(1)}/5 from ${burger.reviews.length} reviews.`,
+    openGraph: {
+      title: `${displayName} - ${displayBrand}`,
+      description: displayDesc || `Check out ${displayName} from ${displayBrand} on TopBun`,
+      images: [burger.imageUrl || '/images/default-burger.svg'],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${displayName} - ${displayBrand}`,
+      description: displayDesc || `${avgRating.toFixed(1)}/5 stars from ${burger.reviews.length} reviews`,
+      images: [burger.imageUrl || '/images/default-burger.svg'],
+    },
+  };
+}
 
 export default async function BurgerDetailPage({
   params,

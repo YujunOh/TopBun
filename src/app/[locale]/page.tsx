@@ -45,7 +45,8 @@ export default async function Home() {
         <Link
           href="/reviews"
           data-testid="hero-cta"
-          className="mt-4 inline-block rounded-full bg-primary px-8 py-3 text-lg font-semibold text-white transition-transform hover:scale-105 hover:bg-accent"
+          className="mt-4 inline-block rounded-full bg-primary px-8 py-3 text-lg font-semibold text-white transition-transform hover:scale-105 hover:bg-accent focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          aria-label="Get started with burger reviews"
         >
           {tHome('cta')}
         </Link>

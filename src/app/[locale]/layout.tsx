@@ -24,6 +24,26 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TopBun - 대한민국 No.1 버거 커뮤니티",
   description: "리뷰, 랭킹, 버거 월드컵까지 — 버거의 모든 것",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "TopBun",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  icons: {
+    icon: "/icon-192x192.png",
+    apple: "/icon-192x192.png",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
+  themeColor: "#E76F51",
 };
 
 export default async function LocaleLayout({

@@ -17,6 +17,7 @@ export default function BuilderCompletePage() {
   const router = useRouter();
   const [summary, setSummary] = useState<BuilderSummary | null>(null);
   const [copied, setCopied] = useState(false);
+  const [promptCopied, setPromptCopied] = useState(false);
 
   useEffect(() => {
     const raw = sessionStorage.getItem(SUMMARY_KEY);
@@ -94,6 +95,22 @@ export default function BuilderCompletePage() {
     }
   }
 
+  async function handleOpenGemini() {
+    if (!summary) return;
+
+    const layerList = summary.layers.map((layer) => layer.label).join(', ');
+    const prompt = `A realistic studio photo of a gourmet burger named "${summary.name}". Ingredients stacked in order: ${layerList}. Warm lighting, shallow depth of field, appetizing, no text, no logo.`;
+
+    try {
+      await navigator.clipboard.writeText(prompt);
+      setPromptCopied(true);
+      setTimeout(() => setPromptCopied(false), 3000);
+      window.open('https://gemini.google.com/', '_blank');
+    } catch {
+      setPromptCopied(false);
+    }
+  }
+
   if (!summary) return null;
 
   return (
@@ -109,6 +126,9 @@ export default function BuilderCompletePage() {
             />
           ))}
         </div>
+        {promptCopied && (
+          <p className="mt-3 text-sm text-accent font-semibold">{t('geminiGuide')}</p>
+        )}
         <h1 className="mt-6 text-3xl font-bold text-text">{t('completeTitle')}</h1>
         <p className="mt-2 text-text-muted">{t('completeSubtitle')}</p>
 
@@ -127,8 +147,17 @@ export default function BuilderCompletePage() {
             type="button"
             onClick={handleCopy}
             className="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary/90"
+            aria-label="Copy burger recipe to clipboard"
           >
             {copied ? t('copySuccess') : t('copyShare')}
+          </button>
+          <button
+            type="button"
+            onClick={handleOpenGemini}
+            className="rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-white transition hover:bg-accent/90"
+            aria-label="Open Gemini AI to generate burger image"
+          >
+            {promptCopied ? t('promptCopied') : t('generateImage')}
           </button>
           <button
             type="button"
@@ -142,6 +171,7 @@ export default function BuilderCompletePage() {
               URL.revokeObjectURL(url);
             }}
             className="rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-text hover:bg-surface-light"
+            aria-label="Download burger visualization as SVG"
           >
             {t('downloadImage')}
           </button>

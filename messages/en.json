@@ -114,6 +114,9 @@
       "copyShare": "Copy share text",
       "copySuccess": "Copied!",
       "downloadImage": "Download burger image",
+      "generateImage": "Generate with Gemini",
+      "promptCopied": "Prompt copied!",
+      "geminiGuide": "Prompt copied. Paste it in Gemini to generate your burger image.",
       "buildAgain": "Build again",
       "expand": "Expand",
       "collapse": "Collapse",
@@ -171,6 +174,13 @@
     "empty": "No posts yet",
     "by": "By {author}",
     "back": "Back to community",
+    "comments": {
+      "title": "{count} comments",
+      "empty": "No comments yet",
+      "write": "Write a comment",
+      "placeholder": "Write your comment",
+      "submit": "Post comment"
+    },
     "form": {
       "title": "Title",
       "content": "Content",

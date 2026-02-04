@@ -1,0 +1,18 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["icn1"],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "NEXTAUTH_URL": "@nextauth_url",
+    "NEXTAUTH_SECRET": "@nextauth_secret",
+    "GITHUB_ID": "@github_id",
+    "GITHUB_SECRET": "@github_secret",
+    "GOOGLE_CLIENT_ID": "@google_client_id",
+    "GOOGLE_CLIENT_SECRET": "@google_client_secret",
+    "OPENAI_API_KEY": "@openai_api_key",
+    "GEMINI_API_KEY": "@gemini_api_key"
+  }
+}

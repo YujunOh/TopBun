@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -54,5 +54,15 @@ model CommunityPost {
   title     String
   content   String
   author    String
+  createdAt DateTime @default(now())
+  comments  CommunityComment[]
+}
+
+model CommunityComment {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  post      CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author    String
+  content   String
   createdAt DateTime @default(now())
 }

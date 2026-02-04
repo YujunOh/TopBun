@@ -8,6 +8,7 @@ export function Footer() {
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-[var(--color-text)] transition"
+          aria-label="View project on GitHub (opens in new tab)"
         >
           GitHub
         </a>
