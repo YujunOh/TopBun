@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { getLocale, getTranslations } from 'next-intl/server';
+import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { CommunityForm } from '@/components/community/CommunityForm';
 
@@ -34,16 +35,29 @@ export default async function CommunityPage() {
                 href={`/community/${post.id}`}
                 className="rounded-2xl bg-surface p-6 transition hover:bg-surface-light"
               >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-text">{post.title}</h3>
-                  <span className="text-xs text-text-muted">
-                    {post.createdAt.toLocaleDateString(locale)}
-                  </span>
+                <div className="flex items-start gap-4">
+                  {post.imageUrl ? (
+                    <Image
+                      src={post.imageUrl}
+                      alt={post.title}
+                      width={64}
+                      height={64}
+                      className="h-16 w-16 rounded-2xl object-cover"
+                    />
+                  ) : null}
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-semibold text-text">{post.title}</h3>
+                      <span className="text-xs text-text-muted">
+                        {post.createdAt.toLocaleDateString(locale)}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm text-text-muted line-clamp-2">{post.content}</p>
+                    <p className="mt-3 text-xs text-text-muted">
+                      {t('by', { author: post.author })}
+                    </p>
+                  </div>
                 </div>
-                <p className="mt-2 text-sm text-text-muted line-clamp-2">{post.content}</p>
-                <p className="mt-3 text-xs text-text-muted">
-                  {t('by', { author: post.author })}
-                </p>
               </Link>
             ))}
           </div>

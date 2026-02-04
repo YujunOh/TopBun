@@ -1,9 +1,12 @@
 import { prisma } from '@/lib/prisma';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { CommunityCommentForm } from '@/components/community/CommunityCommentForm';
+import { CommunityPostActions } from '@/components/community/CommunityPostActions';
 import { Metadata } from 'next';
+import { auth } from '@/auth';
 
 export async function generateMetadata({
   params,
@@ -52,6 +55,7 @@ export default async function CommunityPostPage({
   const { id } = await params;
   const t = await getTranslations('community');
   const locale = await getLocale();
+  const session = await auth();
 
   const post = await prisma.communityPost.findUnique({
     where: { id: parseInt(id) },
@@ -63,6 +67,9 @@ export default async function CommunityPostPage({
   });
 
   if (!post) notFound();
+
+  const currentUserId = parseInt(session?.user?.id ?? '0');
+  const isOwner = currentUserId !== 0 && post.userId === currentUserId;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
@@ -77,7 +84,27 @@ export default async function CommunityPostPage({
           </span>
         </div>
         <p className="mt-2 text-sm text-text-muted">{t('by', { author: post.author })}</p>
+        {post.imageUrl ? (
+          <div className="mt-6">
+            <Image
+              src={post.imageUrl}
+              alt={post.title}
+              width={1200}
+              height={600}
+              className="max-h-96 w-full rounded-2xl object-cover"
+              sizes="100vw"
+            />
+          </div>
+        ) : null}
         <div className="mt-6 whitespace-pre-wrap text-text">{post.content}</div>
+        {isOwner ? (
+          <CommunityPostActions
+            postId={post.id}
+            currentTitle={post.title}
+            currentContent={post.content}
+            currentImageUrl={post.imageUrl}
+          />
+        ) : null}
       </div>
 
       <div className="mt-8">
