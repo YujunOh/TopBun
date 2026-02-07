@@ -137,19 +137,31 @@ export async function createPlacePhoto(formData: FormData) {
 }
 
 export async function createEvent(formData: FormData) {
-  const title = formData.get("title") as string;
-  const description = formData.get("description") as string;
-  const brand = formData.get("brand") as string | null;
-  const placeId = formData.get("placeId") ? parseInt(formData.get("placeId") as string) : null;
-  const imageUrl = formData.get("imageUrl") as string | null;
-  const startDate = new Date(formData.get("startDate") as string);
-  const endDate = new Date(formData.get("endDate") as string);
-  const eventType = formData.get("eventType") as string;
-  const userId = formData.get("userId") ? parseInt(formData.get("userId") as string) : null;
+   const title = formData.get("title") as string;
+   const description = formData.get("description") as string;
+   const brand = formData.get("brand") as string | null;
+   const placeId = formData.get("placeId") ? parseInt(formData.get("placeId") as string) : null;
+   const imageUrl = formData.get("imageUrl") as string | null;
+   const startDate = new Date(formData.get("startDate") as string);
+   const endDate = new Date(formData.get("endDate") as string);
+   const eventType = formData.get("eventType") as string;
+   const userId = formData.get("userId") ? parseInt(formData.get("userId") as string) : null;
 
-  if (!title || !description || !eventType) {
-    return { error: "Missing required fields" };
-  }
+   if (!title || !description || !eventType) {
+     return { error: "Missing required fields: title, description, and eventType are required" };
+   }
+
+   if (!formData.get("startDate") || !formData.get("endDate")) {
+     return { error: "Missing required fields: startDate and endDate are required" };
+   }
+
+   if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+     return { error: "Invalid date format: startDate and endDate must be valid dates" };
+   }
+
+   if (startDate >= endDate) {
+     return { error: "Invalid date range: startDate must be before endDate" };
+   }
 
   try {
     await prisma.burgerEvent.create({

@@ -39,23 +39,35 @@ export async function getExpiredDeals() {
 }
 
 export async function createDeal(formData: FormData) {
-  const title = formData.get("title") as string;
-  const description = formData.get("description") as string;
-  const brand = formData.get("brand") as string;
-  const discountRate = formData.get("discountRate") ? parseInt(formData.get("discountRate") as string) : null;
-  const originalPrice = formData.get("originalPrice") ? parseInt(formData.get("originalPrice") as string) : null;
-  const dealPrice = formData.get("dealPrice") ? parseInt(formData.get("dealPrice") as string) : null;
-  const imageUrl = formData.get("imageUrl") as string | null;
-  const startDate = new Date(formData.get("startDate") as string);
-  const endDate = new Date(formData.get("endDate") as string);
-  const importance = parseInt(formData.get("importance") as string) || 3;
-  const source = formData.get("source") as string | null;
-  const userId = formData.get("userId") ? parseInt(formData.get("userId") as string) : null;
-  const burgerId = formData.get("burgerId") ? parseInt(formData.get("burgerId") as string) : null;
+   const title = formData.get("title") as string;
+   const description = formData.get("description") as string;
+   const brand = formData.get("brand") as string;
+   const discountRate = formData.get("discountRate") ? parseInt(formData.get("discountRate") as string) : null;
+   const originalPrice = formData.get("originalPrice") ? parseInt(formData.get("originalPrice") as string) : null;
+   const dealPrice = formData.get("dealPrice") ? parseInt(formData.get("dealPrice") as string) : null;
+   const imageUrl = formData.get("imageUrl") as string | null;
+   const startDate = new Date(formData.get("startDate") as string);
+   const endDate = new Date(formData.get("endDate") as string);
+   const importance = parseInt(formData.get("importance") as string) || 3;
+   const source = formData.get("source") as string | null;
+   const userId = formData.get("userId") ? parseInt(formData.get("userId") as string) : null;
+   const burgerId = formData.get("burgerId") ? parseInt(formData.get("burgerId") as string) : null;
 
-  if (!title || !description || !brand) {
-    return { error: "Missing required fields" };
-  }
+   if (!title || !description || !brand) {
+     return { error: "Missing required fields: title, description, and brand are required" };
+   }
+
+   if (!formData.get("startDate") || !formData.get("endDate")) {
+     return { error: "Missing required fields: startDate and endDate are required" };
+   }
+
+   if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+     return { error: "Invalid date format: startDate and endDate must be valid dates" };
+   }
+
+   if (startDate >= endDate) {
+     return { error: "Invalid date range: startDate must be before endDate" };
+   }
 
   try {
     await prisma.deal.create({
