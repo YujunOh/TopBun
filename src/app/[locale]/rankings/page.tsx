@@ -1,12 +1,39 @@
 import { getTranslations, getLocale } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
 import { Trophy } from 'lucide-react';
+import { SearchInput } from '@/components/ui/SearchInput';
+import { CategoryFilter } from '../reviews/CategoryFilter';
 
-export default async function RankingsPage() {
+export default async function RankingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; category?: string }>;
+}) {
   const t = await getTranslations('ranking');
+  const tSearch = await getTranslations('search');
+  const tReview = await getTranslations('review');
   const locale = await getLocale();
+  const { q, category } = await searchParams;
+  const searchQuery = q?.trim() || '';
+  const activeCategory = category || 'all';
+
+  const where: { category?: string; OR?: Array<{ name?: { contains: string; mode: 'insensitive' }; nameEn?: { contains: string; mode: 'insensitive' }; brand?: { contains: string; mode: 'insensitive' }; brandEn?: { contains: string; mode: 'insensitive' } }> } = {};
+  
+  if (activeCategory !== 'all') {
+    where.category = activeCategory;
+  }
+  
+  if (searchQuery) {
+    where.OR = [
+      { name: { contains: searchQuery, mode: 'insensitive' } },
+      { nameEn: { contains: searchQuery, mode: 'insensitive' } },
+      { brand: { contains: searchQuery, mode: 'insensitive' } },
+      { brandEn: { contains: searchQuery, mode: 'insensitive' } },
+    ];
+  }
 
   const burgers = await prisma.burger.findMany({
+    where,
     orderBy: { eloRating: 'desc' },
   });
 
@@ -18,7 +45,21 @@ export default async function RankingsPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="mb-8 text-3xl font-bold text-text">{t('title')}</h1>
+      <h1 className="mb-6 text-3xl font-bold text-text">{t('title')}</h1>
+
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <SearchInput 
+          placeholder={tSearch('searchBurgers')} 
+          className="w-full sm:w-64" 
+        />
+        <CategoryFilter active={activeCategory} />
+      </div>
+
+      {searchQuery && (
+        <p className="mb-4 text-sm text-text-muted">
+          {tSearch('resultsCount', { count: burgers.length })}
+        </p>
+      )}
 
       <div className="overflow-x-auto rounded-2xl bg-surface">
         <table data-testid="ranking-table" className="w-full text-left">

@@ -4,10 +4,12 @@
     "subtitle": "Korea's #1 Burger Community",
     "comingSoon": "Coming Soon"
   },
-  "nav": {
+"nav": {
     "home": "Home",
     "reviews": "Reviews",
     "rankings": "Rankings",
+    "deals": "Deals",
+    "places": "Burger Coach",
     "community": "Community",
     "worldcup": "Burger World Cup",
     "tierlist": "Tier List",
@@ -103,10 +105,13 @@
     "unranked": "Unranked",
     "listTitle": "Tier list title",
     "listTitlePlaceholder": "My burger tier list",
+    "defaultListTitle": "My Burger Tier List",
+    "editTitle": "Edit title",
     "editTierLabel": "Edit tier name",
     "saveImage": "Save image",
     "share": "Share",
     "shareCopied": "Link copied!",
+    "shareSuccess": "Copied to clipboard!",
     "saving": "Saving..."
   },
     "builder": {
@@ -232,9 +237,126 @@
     "editError": "Failed to update post",
     "deleteError": "Failed to delete post",
     "share": "Share",
-    "shareSuccess": "Copied to clipboard!"
+    "shareSuccess": "Copied to clipboard!",
+    "like": "Like",
+    "likes": "{count} likes",
+    "loginToLike": "Login to like"
   },
-   "error": {
+"search": {
+    "placeholder": "Enter search term",
+    "searchBurgers": "Search burgers",
+    "searchPosts": "Search posts",
+    "noResults": "No results found",
+    "resultsCount": "{count} results"
+  },
+  "theme": {
+    "light": "Light mode",
+    "dark": "Dark mode",
+    "system": "System"
+  },
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "Account information and activity",
+    "info": "Account Info",
+    "name": "Name",
+    "email": "Email",
+    "provider": "Login method",
+    "joinDate": "Joined",
+    "editProfile": "Edit Profile",
+    "save": "Save",
+    "cancel": "Cancel",
+    "updateSuccess": "Profile updated",
+    "updateError": "Failed to update",
+    "activity": "Activity",
+    "myReviews": "My Reviews",
+    "myPosts": "My Posts",
+    "myLikes": "Liked Posts",
+    "noReviews": "No reviews yet",
+    "noPosts": "No posts yet",
+    "noLikes": "No liked posts",
+    "reviewCount": "{count} reviews",
+    "postCount": "{count} posts",
+    "likeCount": "{count} likes",
+    "loginRequired": "Login required",
+    "loginToView": "Please login to view your profile",
+    "providers": {
+      "credentials": "Email",
+      "google": "Google",
+      "github": "GitHub",
+      "naver": "Naver",
+      "kakao": "Kakao"
+    }
+  },
+  "deals": {
+    "title": "Deals",
+    "subtitle": "Share burger deals & promotions",
+    "addDeal": "Add Deal",
+    "activeDeals": "Active Deals",
+    "expiredDeals": "Expired Deals",
+    "noDeals": "No deals available",
+    "source": "Source",
+    "loginRequired": "Please login to add deals",
+    "form": {
+      "title": "Title",
+      "titlePlaceholder": "e.g., Burger King Whopper 50% off",
+      "brand": "Brand",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe the deal details and conditions",
+      "discountRate": "Discount (%)",
+      "originalPrice": "Original Price",
+      "dealPrice": "Deal Price",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "importance": "Importance",
+      "source": "Source",
+      "sourcePlaceholder": "e.g., Official app, delivery app",
+      "submit": "Submit",
+      "submitting": "Submitting...",
+      "success": "Deal added successfully!",
+      "error": "Failed to add deal"
+    }
+  },
+  "places": {
+    "title": "Burger Coach",
+    "subtitle": "Share hidden burger gems and upload verified photos",
+    "addPlace": "Add Place",
+    "registeredPlaces": "Registered Places",
+    "noPlaces": "No places registered yet",
+    "handmade": "Handmade",
+    "naverMap": "Naver Map",
+    "kakaoMap": "Kakao Map",
+    "photoCount": "{count} photos",
+    "loginRequired": "Please login to add places",
+    "form": {
+      "name": "Place Name",
+      "namePlaceholder": "e.g., Downtowner Seongsu",
+      "brand": "Brand",
+      "selectBrand": "Select brand (optional)",
+      "address": "Address",
+      "addressPlaceholder": "e.g., 17-15 Seoul Forest-gil, Seongdong-gu",
+      "phone": "Phone",
+      "phonePlaceholder": "e.g., 02-1234-5678",
+      "naverMapUrl": "Naver Map Link",
+      "kakaoMapUrl": "Kakao Map Link",
+      "isHandmade": "Handmade burger specialty",
+      "submit": "Submit",
+      "submitting": "Submitting...",
+      "success": "Place added successfully!",
+      "error": "Failed to add place"
+    },
+    "photo": {
+      "title": "Verified Photos",
+      "upload": "Upload Photo",
+      "types": {
+        "exterior": "Exterior",
+        "interior": "Interior",
+        "cross_section": "Cross Section",
+        "burger": "Burger",
+        "menu": "Menu"
+      }
+    }
+  },
+  "error": {
      "title": "Something went wrong",
      "tryAgain": "Try again"
    },

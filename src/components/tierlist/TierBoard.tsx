@@ -282,7 +282,7 @@ export function TierBoard({ burgers }: { burgers: BurgerDTO[] }) {
             {isEditingTitle ? (
               <input
                 ref={titleInputRef}
-                className="bg-transparent text-3xl font-bold text-text outline-none"
+                className="bg-transparent text-3xl font-bold text-text outline-none border-b-2 border-primary"
                 value={titleDraft}
                 onChange={(event) => setTitleDraft(event.target.value)}
                 onBlur={commitTitle}
@@ -302,11 +302,20 @@ export function TierBoard({ burgers }: { burgers: BurgerDTO[] }) {
             ) : (
               <button
                 type="button"
-                className="text-left text-3xl font-bold text-text"
+                className="group flex items-center gap-2 text-left text-3xl font-bold text-text hover:text-primary transition-colors"
                 onClick={() => setIsEditingTitle(true)}
                 aria-label={t('editTitle')}
+                title={t('editTitle')}
               >
                 {listTitle}
+                <svg 
+                  className="w-5 h-5 opacity-40 group-hover:opacity-100 transition-opacity" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
               </button>
             )}
 

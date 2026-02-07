@@ -4,10 +4,12 @@
     "subtitle": "대한민국 No.1 버거 커뮤니티",
     "comingSoon": "곧 찾아옵니다"
   },
-  "nav": {
+"nav": {
     "home": "홈",
     "reviews": "리뷰",
     "rankings": "랭킹",
+    "deals": "할인정보",
+    "places": "버거코치",
     "community": "커뮤니티",
     "worldcup": "버거 월드컵",
     "tierlist": "티어표",
@@ -103,10 +105,13 @@
     "unranked": "미분류",
     "listTitle": "티어표 제목",
     "listTitlePlaceholder": "내 버거 티어표",
+    "defaultListTitle": "내 버거 티어표",
+    "editTitle": "제목 수정",
     "saveImage": "이미지 저장",
     "share": "공유",
     "editTierLabel": "티어 이름 수정",
     "shareCopied": "클립보드에 복사되었습니다!",
+    "shareSuccess": "클립보드에 복사되었습니다!",
     "saving": "저장 중..."
   },
     "builder": {
@@ -232,9 +237,126 @@
     "editError": "수정에 실패했습니다",
     "deleteError": "삭제에 실패했습니다",
     "share": "공유",
-    "shareSuccess": "클립보드에 복사되었습니다!"
+    "shareSuccess": "클립보드에 복사되었습니다!",
+    "like": "좋아요",
+    "likes": "좋아요 {count}개",
+    "loginToLike": "좋아요를 누르려면 로그인하세요"
   },
-   "error": {
+"search": {
+    "placeholder": "검색어를 입력하세요",
+    "searchBurgers": "버거 검색",
+    "searchPosts": "게시글 검색",
+    "noResults": "검색 결과가 없습니다",
+    "resultsCount": "검색 결과 {count}개"
+  },
+  "theme": {
+    "light": "라이트 모드",
+    "dark": "다크 모드",
+    "system": "시스템 설정"
+  },
+  "profile": {
+    "title": "내 프로필",
+    "subtitle": "계정 정보 및 활동 내역",
+    "info": "계정 정보",
+    "name": "이름",
+    "email": "이메일",
+    "provider": "로그인 방법",
+    "joinDate": "가입일",
+    "editProfile": "프로필 수정",
+    "save": "저장",
+    "cancel": "취소",
+    "updateSuccess": "프로필이 수정되었습니다",
+    "updateError": "수정에 실패했습니다",
+    "activity": "활동 내역",
+    "myReviews": "내 리뷰",
+    "myPosts": "내 게시글",
+    "myLikes": "좋아요한 글",
+    "noReviews": "작성한 리뷰가 없습니다",
+    "noPosts": "작성한 게시글이 없습니다",
+    "noLikes": "좋아요한 글이 없습니다",
+    "reviewCount": "리뷰 {count}개",
+    "postCount": "게시글 {count}개",
+    "likeCount": "좋아요 {count}개",
+    "loginRequired": "로그인이 필요합니다",
+    "loginToView": "프로필을 보려면 로그인하세요",
+    "providers": {
+      "credentials": "이메일",
+      "google": "Google",
+      "github": "GitHub",
+      "naver": "네이버",
+      "kakao": "카카오"
+    }
+  },
+  "deals": {
+    "title": "할인정보",
+    "subtitle": "버거 할인 & 프로모션 정보를 공유하세요",
+    "addDeal": "할인정보 등록",
+    "activeDeals": "진행 중인 할인",
+    "expiredDeals": "종료된 할인",
+    "noDeals": "등록된 할인정보가 없습니다",
+    "source": "출처",
+    "loginRequired": "할인정보를 등록하려면 로그인하세요",
+    "form": {
+      "title": "제목",
+      "titlePlaceholder": "예: 버거킹 와퍼 50% 할인",
+      "brand": "브랜드",
+      "description": "설명",
+      "descriptionPlaceholder": "할인 내용과 조건을 자세히 적어주세요",
+      "discountRate": "할인율 (%)",
+      "originalPrice": "정가 (원)",
+      "dealPrice": "할인가 (원)",
+      "startDate": "시작일",
+      "endDate": "종료일",
+      "importance": "중요도",
+      "source": "출처",
+      "sourcePlaceholder": "예: 버거킹 공식 앱, 배민",
+      "submit": "등록하기",
+      "submitting": "등록 중...",
+      "success": "할인정보가 등록되었습니다!",
+      "error": "등록에 실패했습니다"
+    }
+  },
+  "places": {
+    "title": "버거코치",
+    "subtitle": "숨은 버거 맛집을 공유하고 인증 사진을 올려보세요",
+    "addPlace": "가게 등록",
+    "registeredPlaces": "등록된 가게",
+    "noPlaces": "아직 등록된 가게가 없습니다",
+    "handmade": "수제버거",
+    "naverMap": "네이버지도",
+    "kakaoMap": "카카오맵",
+    "photoCount": "사진 {count}장",
+    "loginRequired": "가게를 등록하려면 로그인하세요",
+    "form": {
+      "name": "가게명",
+      "namePlaceholder": "예: 다운타우너 성수점",
+      "brand": "브랜드",
+      "selectBrand": "브랜드 선택 (선택사항)",
+      "address": "주소",
+      "addressPlaceholder": "예: 서울 성동구 서울숲길 17-15",
+      "phone": "전화번호",
+      "phonePlaceholder": "예: 02-1234-5678",
+      "naverMapUrl": "네이버지도 링크",
+      "kakaoMapUrl": "카카오맵 링크",
+      "isHandmade": "수제버거 전문점",
+      "submit": "등록하기",
+      "submitting": "등록 중...",
+      "success": "가게가 등록되었습니다!",
+      "error": "등록에 실패했습니다"
+    },
+    "photo": {
+      "title": "인증 사진",
+      "upload": "사진 업로드",
+      "types": {
+        "exterior": "외관",
+        "interior": "내부",
+        "cross_section": "단면",
+        "burger": "버거",
+        "menu": "메뉴판"
+      }
+    }
+  },
+  "error": {
      "title": "문제가 발생했습니다",
      "tryAgain": "다시 시도"
    },

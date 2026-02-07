@@ -4,6 +4,7 @@ import type { ChangeEvent, FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
+import { ChevronDown, ChevronUp, PenSquare } from 'lucide-react';
 import { createCommunityPost } from '@/actions/community';
 import { uploadImage } from '@/actions/upload';
 import { useAuth } from '@/components/auth/AuthProvider';
@@ -16,6 +17,7 @@ export function CommunityForm() {
   const router = useRouter();
   const author = user?.name || tAuth('guest');
 
+  const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -81,6 +83,7 @@ export function CommunityForm() {
       setContent('');
       setImageFile(null);
       setImagePreview(null);
+      setIsOpen(false); // Close form after successful submission
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -91,60 +94,88 @@ export function CommunityForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-2xl bg-surface p-6">
-      <input type="hidden" name="author" value={author} />
-      <div className="mb-4">
-        <label className="mb-1 block text-sm font-semibold text-text">{t('form.title')}</label>
-        <input
-          name="title"
-          required
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          className="w-full rounded-xl bg-surface-light px-4 py-3 text-text placeholder:text-text-muted outline-none focus:ring-2 focus:ring-primary/50"
-          placeholder={t('form.titlePlaceholder')}
-          disabled={isSubmitting}
-        />
-      </div>
-      <div className="mb-4">
-        <label className="mb-1 block text-sm font-semibold text-text">{t('form.content')}</label>
-        <textarea
-          name="content"
-          required
-          rows={5}
-          value={content}
-          onChange={(event) => setContent(event.target.value)}
-          className="w-full rounded-xl bg-surface-light px-4 py-3 text-text placeholder:text-text-muted outline-none focus:ring-2 focus:ring-primary/50"
-          placeholder={t('form.contentPlaceholder')}
-          disabled={isSubmitting}
-        />
-      </div>
-      <div className="mb-6">
-        <label className="mb-2 block text-sm font-semibold text-text">{t('form.image')}</label>
-        <label className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-text-muted/40 bg-surface-light px-4 py-6 text-sm text-text-muted transition hover:border-primary/60">
-          <input
-            type="file"
-            accept="image/jpeg,image/png,image/webp"
-            className="hidden"
-            onChange={handleImageChange}
-            disabled={isSubmitting}
-          />
-          <span>{imageFile ? imageFile.name : t('form.image')}</span>
-          {imagePreview ? (
-            <img
-              src={imagePreview}
-              alt={t('form.image')}
-              className="h-32 w-full rounded-2xl object-cover"
-            />
-          ) : null}
-        </label>
-      </div>
+    <div className="rounded-2xl bg-surface overflow-hidden">
+      {/* Toggle Button */}
       <button
-        type="submit"
-        className="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary/90 disabled:opacity-70"
-        disabled={isSubmitting}
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-surface-light/50 transition"
       >
-        {isSubmitting ? t('form.uploading') : t('form.submit')}
+        <div className="flex items-center gap-3">
+          <PenSquare size={20} className="text-primary" />
+          <span className="font-semibold text-text">{t('form.submit')}</span>
+        </div>
+        {isOpen ? (
+          <ChevronUp size={20} className="text-text-muted" />
+        ) : (
+          <ChevronDown size={20} className="text-text-muted" />
+        )}
       </button>
-    </form>
+
+      {/* Collapsible Form */}
+      <div
+        className={`grid transition-all duration-300 ease-in-out ${
+          isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+        }`}
+      >
+        <div className="overflow-hidden">
+          <form onSubmit={handleSubmit} className="px-6 pb-6 pt-2">
+            <input type="hidden" name="author" value={author} />
+            <div className="mb-4">
+              <label className="mb-1 block text-sm font-semibold text-text">{t('form.title')}</label>
+              <input
+                name="title"
+                required
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+                className="w-full rounded-xl bg-surface-light px-4 py-3 text-text placeholder:text-text-muted outline-none focus:ring-2 focus:ring-primary/50"
+                placeholder={t('form.titlePlaceholder')}
+                disabled={isSubmitting}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="mb-1 block text-sm font-semibold text-text">{t('form.content')}</label>
+              <textarea
+                name="content"
+                required
+                rows={5}
+                value={content}
+                onChange={(event) => setContent(event.target.value)}
+                className="w-full rounded-xl bg-surface-light px-4 py-3 text-text placeholder:text-text-muted outline-none focus:ring-2 focus:ring-primary/50"
+                placeholder={t('form.contentPlaceholder')}
+                disabled={isSubmitting}
+              />
+            </div>
+            <div className="mb-6">
+              <label className="mb-2 block text-sm font-semibold text-text">{t('form.image')}</label>
+              <label className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-text-muted/40 bg-surface-light px-4 py-6 text-sm text-text-muted transition hover:border-primary/60">
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  className="hidden"
+                  onChange={handleImageChange}
+                  disabled={isSubmitting}
+                />
+                <span>{imageFile ? imageFile.name : t('form.image')}</span>
+                {imagePreview ? (
+                  <img
+                    src={imagePreview}
+                    alt={t('form.image')}
+                    className="h-32 w-full rounded-2xl object-cover"
+                  />
+                ) : null}
+              </label>
+            </div>
+            <button
+              type="submit"
+              className="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary/90 disabled:opacity-70"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? t('form.uploading') : t('form.submit')}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }

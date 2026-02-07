@@ -5,8 +5,10 @@ import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { CommunityCommentForm } from '@/components/community/CommunityCommentForm';
 import { CommunityPostActions } from '@/components/community/CommunityPostActions';
+import { LikeButton } from '@/components/community/LikeButton';
 import { Metadata } from 'next';
 import { auth } from '@/auth';
+import { getPostLikeStatus } from '@/actions/community';
 
 export async function generateMetadata({
   params,
@@ -70,6 +72,8 @@ export default async function CommunityPostPage({
 
   const currentUserId = parseInt(session?.user?.id ?? '0');
   const isOwner = currentUserId !== 0 && post.userId === currentUserId;
+  const isLoggedIn = currentUserId !== 0;
+  const { likeCount, isLiked } = await getPostLikeStatus(post.id);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
@@ -97,14 +101,22 @@ export default async function CommunityPostPage({
           </div>
         ) : null}
         <div className="mt-6 whitespace-pre-wrap text-text">{post.content}</div>
-        {isOwner ? (
-          <CommunityPostActions
+        <div className="mt-6 flex items-center gap-3">
+          <LikeButton
             postId={post.id}
-            currentTitle={post.title}
-            currentContent={post.content}
-            currentImageUrl={post.imageUrl}
+            initialLikeCount={likeCount}
+            initialIsLiked={isLiked}
+            isLoggedIn={isLoggedIn}
           />
-        ) : null}
+          {isOwner ? (
+            <CommunityPostActions
+              postId={post.id}
+              currentTitle={post.title}
+              currentContent={post.content}
+              currentImageUrl={post.imageUrl}
+            />
+          ) : null}
+        </div>
       </div>
 
       <div className="mt-8">

@@ -9,3 +9,23 @@
   --color-text: #3A2D1F;
   --color-text-muted: #7A5C3D;
 }
+
+/* Dark mode colors */
+.dark {
+  --color-primary: #FF8A65;
+  --color-accent: #FFB74D;
+  --color-bg: #1A1512;
+  --color-surface: #2D2520;
+  --color-surface-light: #3D3530;
+  --color-text: #F5E6D3;
+  --color-text-muted: #B8A89A;
+}
+
+/* Smooth theme transition */
+html {
+  transition: background-color 0.2s ease-in-out;
+}
+
+html.dark {
+  color-scheme: dark;
+}

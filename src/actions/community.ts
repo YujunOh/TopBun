@@ -2,19 +2,17 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { auth } from '@/auth';
 
 export async function createCommunityPost(formData: FormData) {
   try {
+    const session = await auth();
+    const userId = session?.user?.id ? parseInt(session.user.id) : null;
+    const author = session?.user?.name || (formData.get('author') as string)?.trim() || '게스트';
+
     const title = (formData.get('title') as string)?.trim();
     const content = (formData.get('content') as string)?.trim();
-    const author = (formData.get('author') as string)?.trim() || '게스트';
     const imageUrl = (formData.get('imageUrl') as string)?.trim();
-    const userIdRaw = (formData.get('userId') as string)?.trim();
-
-    const userId = userIdRaw ? parseInt(userIdRaw) : null;
-    if (userIdRaw && Number.isNaN(userId)) {
-      throw new Error('Invalid user ID');
-    }
 
     if (!title || !content) {
       throw new Error('Title and content are required');
@@ -26,7 +24,7 @@ export async function createCommunityPost(formData: FormData) {
         content,
         author,
         imageUrl: imageUrl || null,
-        userId,
+        userId: userId && !Number.isNaN(userId) ? userId : null,
       },
     });
 
@@ -40,19 +38,27 @@ export async function createCommunityPost(formData: FormData) {
 
 export async function updateCommunityPost(formData: FormData) {
   try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return { error: 'Login required' };
+    }
+
+    const userId = parseInt(session.user.id);
+    if (Number.isNaN(userId)) {
+      return { error: 'Invalid user' };
+    }
+
     const postIdRaw = (formData.get('postId') as string)?.trim();
     const title = (formData.get('title') as string)?.trim();
     const content = (formData.get('content') as string)?.trim();
-    const userIdRaw = (formData.get('userId') as string)?.trim();
 
-    if (!postIdRaw || !title || !content || !userIdRaw) {
-      return { error: 'Post ID, title, content, and user ID are required' };
+    if (!postIdRaw || !title || !content) {
+      return { error: 'Post ID, title, and content are required' };
     }
 
     const postId = parseInt(postIdRaw);
-    const userId = parseInt(userIdRaw);
-    if (Number.isNaN(postId) || Number.isNaN(userId)) {
-      return { error: 'Invalid post ID or user ID' };
+    if (Number.isNaN(postId)) {
+      return { error: 'Invalid post ID' };
     }
 
     const post = await prisma.communityPost.findUnique({
@@ -80,17 +86,24 @@ export async function updateCommunityPost(formData: FormData) {
 
 export async function deleteCommunityPost(formData: FormData) {
   try {
-    const postIdRaw = (formData.get('postId') as string)?.trim();
-    const userIdRaw = (formData.get('userId') as string)?.trim();
+    const session = await auth();
+    if (!session?.user?.id) {
+      return { error: 'Login required' };
+    }
 
-    if (!postIdRaw || !userIdRaw) {
-      return { error: 'Post ID and user ID are required' };
+    const userId = parseInt(session.user.id);
+    if (Number.isNaN(userId)) {
+      return { error: 'Invalid user' };
+    }
+
+    const postIdRaw = (formData.get('postId') as string)?.trim();
+    if (!postIdRaw) {
+      return { error: 'Post ID is required' };
     }
 
     const postId = parseInt(postIdRaw);
-    const userId = parseInt(userIdRaw);
-    if (Number.isNaN(postId) || Number.isNaN(userId)) {
-      return { error: 'Invalid post ID or user ID' };
+    if (Number.isNaN(postId)) {
+      return { error: 'Invalid post ID' };
     }
 
     const post = await prisma.communityPost.findUnique({
@@ -138,5 +151,64 @@ export async function createCommunityComment(formData: FormData) {
   } catch (error) {
     console.error('Failed to create community comment:', error);
     throw error;
+  }
+}
+
+export async function togglePostLike(postId: number) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return { error: 'Login required' };
+    }
+
+    const userId = parseInt(session.user.id);
+    if (Number.isNaN(userId)) {
+      return { error: 'Invalid user' };
+    }
+
+    const existingLike = await prisma.postLike.findUnique({
+      where: { postId_userId: { postId, userId } },
+    });
+
+    if (existingLike) {
+      await prisma.postLike.delete({
+        where: { id: existingLike.id },
+      });
+    } else {
+      await prisma.postLike.create({
+        data: { postId, userId },
+      });
+    }
+
+    revalidatePath('/community');
+    revalidatePath(`/community/${postId}`);
+    return { success: true, liked: !existingLike };
+  } catch (error) {
+    console.error('Failed to toggle like:', error);
+    return { error: 'Failed to toggle like' };
+  }
+}
+
+export async function getPostLikeStatus(postId: number) {
+  try {
+    const session = await auth();
+    const userId = session?.user?.id ? parseInt(session.user.id) : null;
+
+    const likeCount = await prisma.postLike.count({
+      where: { postId },
+    });
+
+    let isLiked = false;
+    if (userId && !Number.isNaN(userId)) {
+      const existingLike = await prisma.postLike.findUnique({
+        where: { postId_userId: { postId, userId } },
+      });
+      isLiked = !!existingLike;
+    }
+
+    return { likeCount, isLiked };
+  } catch (error) {
+    console.error('Failed to get like status:', error);
+    return { likeCount: 0, isLiked: false };
   }
 }

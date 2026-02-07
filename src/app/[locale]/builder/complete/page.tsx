@@ -191,11 +191,11 @@ Style requirements:
           </ul>
         </div>
 
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+<div className="mt-6 flex flex-wrap justify-center gap-3">
           <button
             type="button"
             onClick={handleCopy}
-            className="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary/90"
+            className="whitespace-nowrap rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary/90"
             aria-label="Copy burger recipe to clipboard"
           >
             {copied ? t('copySuccess') : t('copyShare')}
@@ -203,7 +203,7 @@ Style requirements:
           <button
             type="button"
             onClick={handleShare}
-            className="rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-text hover:bg-surface-light"
+            className="whitespace-nowrap rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-text hover:bg-surface-light"
             aria-label="Share burger summary"
           >
             {t('share')}
@@ -211,7 +211,7 @@ Style requirements:
           <button
             type="button"
             onClick={handleOpenGemini}
-            className="rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-white transition hover:bg-accent/90"
+            className="whitespace-nowrap rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-white transition hover:bg-accent/90"
             aria-label="Open Gemini AI to generate burger image"
           >
             {promptCopied ? t('promptCopied') : t('generateImage')}
@@ -227,14 +227,14 @@ Style requirements:
               link.click();
               URL.revokeObjectURL(url);
             }}
-            className="rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-text hover:bg-surface-light"
+            className="whitespace-nowrap rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-text hover:bg-surface-light"
             aria-label="Download burger visualization as SVG"
           >
             {t('downloadImage')}
           </button>
           <Link
             href="/builder"
-            className="rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-text hover:bg-surface-light"
+            className="whitespace-nowrap rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-text hover:bg-surface-light"
           >
             {t('buildAgain')}
           </Link>

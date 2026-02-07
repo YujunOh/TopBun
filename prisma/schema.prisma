@@ -20,8 +20,10 @@ model Burger {
   lastEloDelta  Float     @default(0)
   matchCount    Int       @default(0)
   category      String    @default("classic")
+  burgerType    String    @default("franchise") // "franchise" | "handmade"
   createdAt     DateTime  @default(now())
   reviews       Review[]
+  deals         Deal[]
 }
 
 model Review {
@@ -46,10 +48,18 @@ model User {
   password          String?
   emailVerified     DateTime?
   verificationToken String?
+  role              String    @default("user") // "user" | "coach" | "admin"
+  points            Int       @default(0)
+  badge             String?   // "beginner" | "enthusiast" | "mania" | "coach"
   createdAt         DateTime  @default(now())
   reviews           Review[]
   communityPosts    CommunityPost[]
   communityComments CommunityComment[]
+  postLikes         PostLike[]
+  deals             Deal[]
+  places            BurgerPlace[]
+  placePhotos       PlacePhoto[]
+  events            BurgerEvent[]
 
   @@unique([provider, providerId])
 }
@@ -65,6 +75,18 @@ model CommunityPost {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   comments  CommunityComment[]
+  likes     PostLike[]
+}
+
+model PostLike {
+  id        Int           @id @default(autoincrement())
+  postId    Int
+  post      CommunityPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime      @default(now())
+
+  @@unique([postId, userId])
 }
 
 model CommunityComment {
@@ -76,4 +98,82 @@ model CommunityComment {
   userId    Int?
   user      User?    @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
+}
+
+model Deal {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  brand       String
+  discountRate Int?      // percentage, e.g., 20 for 20% off
+  originalPrice Int?
+  dealPrice   Int?
+  imageUrl    String?
+  startDate   DateTime
+  endDate     DateTime
+  importance  Int       @default(3) // 1-5 stars for deal importance
+  isActive    Boolean   @default(true)
+  source      String?   // where the deal info came from
+  burgerId    Int?
+  burger      Burger?   @relation(fields: [burgerId], references: [id])
+  userId      Int?
+  user        User?     @relation(fields: [userId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// 버거 가게/매장 정보
+model BurgerPlace {
+  id          Int       @id @default(autoincrement())
+  name        String
+  nameEn      String?
+  brand       String?
+  address     String
+  naverMapUrl String?   // 네이버 지도 링크
+  kakaoMapUrl String?   // 카카오맵 링크
+  phone       String?
+  latitude    Float?
+  longitude   Float?
+  isHandmade  Boolean   @default(false)
+  rating      Float     @default(0)
+  reviewCount Int       @default(0)
+  userId      Int?      // 등록한 사용자
+  user        User?     @relation(fields: [userId], references: [id])
+  photos      PlacePhoto[]
+  events      BurgerEvent[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// 인증 사진
+model PlacePhoto {
+  id          Int         @id @default(autoincrement())
+  placeId     Int
+  place       BurgerPlace @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  userId      Int
+  user        User        @relation(fields: [userId], references: [id])
+  imageUrl    String
+  photoType   String      // "exterior" | "interior" | "cross_section" | "burger" | "menu"
+  caption     String?
+  isVerified  Boolean     @default(false)
+  points      Int         @default(10) // 사진당 획득 포인트
+  createdAt   DateTime    @default(now())
+}
+
+// 버거 이벤트/행사
+model BurgerEvent {
+  id          Int          @id @default(autoincrement())
+  title       String
+  description String
+  brand       String?
+  placeId     Int?
+  place       BurgerPlace? @relation(fields: [placeId], references: [id])
+  imageUrl    String?
+  startDate   DateTime
+  endDate     DateTime
+  eventType   String       // "promotion" | "new_menu" | "popup" | "festival"
+  userId      Int?
+  user        User?        @relation(fields: [userId], references: [id])
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }

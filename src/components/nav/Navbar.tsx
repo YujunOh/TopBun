@@ -5,11 +5,14 @@ import { Link } from '@/i18n/navigation';
 import { Menu, X, User } from 'lucide-react';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { LocaleSwitcher } from './LocaleSwitcher';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import Image from 'next/image';
 
 const navItems = [
   { key: 'reviews', href: '/reviews' },
   { key: 'rankings', href: '/rankings' },
+  { key: 'deals', href: '/deals' },
+  { key: 'places', href: '/places' },
   { key: 'community', href: '/community' },
   { key: 'worldcup', href: '/worldcup' },
   { key: 'tierlist', href: '/tierlist' },
@@ -52,20 +55,30 @@ export function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-2">
+          <ThemeToggle />
           <LocaleSwitcher />
           <div className="flex items-center gap-2 px-3 py-1.5 text-sm text-[var(--color-text-muted)]">
-            {user?.image ? (
-              <Image
-                src={user.image}
-                alt={displayName}
-                width={20}
-                height={20}
-                className="h-5 w-5 rounded-full"
-              />
+            {status === 'authenticated' ? (
+              <Link href="/profile" className="flex items-center gap-2 hover:text-[var(--color-text)] transition">
+                {user?.image ? (
+                  <Image
+                    src={user.image}
+                    alt={displayName}
+                    width={20}
+                    height={20}
+                    className="h-5 w-5 rounded-full"
+                  />
+                ) : (
+                  <User size={16} />
+                )}
+                <span>{displayName}</span>
+              </Link>
             ) : (
-              <User size={16} />
+              <>
+                <User size={16} />
+                <span>{displayName}</span>
+              </>
             )}
-            <span>{displayName}</span>
             {status === 'authenticated' ? (
               <button onClick={logout} className="ml-1 text-xs text-[var(--color-accent)] hover:underline">
                 {tAuth('logout')}
@@ -104,20 +117,31 @@ export function Navbar() {
             </Link>
           ))}
             <div className="px-6 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
-                {user?.image ? (
-                  <Image
-                    src={user.image}
-                    alt={displayName}
-                    width={20}
-                    height={20}
-                    className="h-5 w-5 rounded-full"
-                  />
-                ) : (
+              {status === 'authenticated' ? (
+                <Link
+                  href="/profile"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+                >
+                  {user?.image ? (
+                    <Image
+                      src={user.image}
+                      alt={displayName}
+                      width={20}
+                      height={20}
+                      className="h-5 w-5 rounded-full"
+                    />
+                  ) : (
+                    <User size={16} />
+                  )}
+                  <span>{displayName}</span>
+                </Link>
+              ) : (
+                <div className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
                   <User size={16} />
-                )}
-                <span>{displayName}</span>
-              </div>
+                  <span>{displayName}</span>
+                </div>
+              )}
               {status === 'authenticated' ? (
                 <button onClick={logout} className="text-xs text-[var(--color-accent)] hover:underline">
                   {tAuth('logout')}
@@ -127,6 +151,7 @@ export function Navbar() {
                   {tAuth('login')}
                 </button>
               )}
+              <ThemeToggle />
               <LocaleSwitcher />
             </div>
           </div>

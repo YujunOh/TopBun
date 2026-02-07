@@ -2,19 +2,35 @@ import { getTranslations, getLocale } from 'next-intl/server';
 import { prisma } from '@/lib/prisma';
 import { Link } from '@/i18n/navigation';
 import { CategoryFilter } from './CategoryFilter';
+import { SearchInput } from '@/components/ui/SearchInput';
 import Image from 'next/image';
 
 export default async function ReviewsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; q?: string }>;
 }) {
   const t = await getTranslations('review');
+  const tSearch = await getTranslations('search');
   const locale = await getLocale();
-  const { category } = await searchParams;
+  const { category, q } = await searchParams;
   const activeCategory = category || 'all';
+  const searchQuery = q?.trim() || '';
 
-  const where = activeCategory !== 'all' ? { category: activeCategory } : {};
+  const where: { category?: string; OR?: Array<{ name?: { contains: string; mode: 'insensitive' }; nameEn?: { contains: string; mode: 'insensitive' }; brand?: { contains: string; mode: 'insensitive' }; brandEn?: { contains: string; mode: 'insensitive' } }> } = {};
+  
+  if (activeCategory !== 'all') {
+    where.category = activeCategory;
+  }
+  
+  if (searchQuery) {
+    where.OR = [
+      { name: { contains: searchQuery, mode: 'insensitive' } },
+      { nameEn: { contains: searchQuery, mode: 'insensitive' } },
+      { brand: { contains: searchQuery, mode: 'insensitive' } },
+      { brandEn: { contains: searchQuery, mode: 'insensitive' } },
+    ];
+  }
 
   const burgers = await prisma.burger.findMany({
     where,
@@ -58,7 +74,19 @@ export default async function ReviewsPage({
         </Link>
       </div>
 
-      <CategoryFilter active={activeCategory} />
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <SearchInput 
+          placeholder={tSearch('searchBurgers')} 
+          className="w-full sm:w-64" 
+        />
+        <CategoryFilter active={activeCategory} />
+      </div>
+      
+      {searchQuery && (
+        <p className="mb-4 text-sm text-text-muted">
+          {tSearch('resultsCount', { count: burgersWithStats.length })}
+        </p>
+      )}
 
       <div data-testid="burger-grid" className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {burgersWithStats.map((burger) => (

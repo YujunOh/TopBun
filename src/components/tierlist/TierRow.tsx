@@ -76,7 +76,7 @@ export function TierRow({
             <input
               ref={inputRef}
               aria-label={editLabelText}
-              className="w-full bg-transparent text-center text-lg font-extrabold text-white focus:outline-none"
+              className="w-full bg-transparent text-center text-lg font-extrabold text-white focus:outline-none ring-2 ring-white/50"
               value={draftLabel}
               onChange={(event) => setDraftLabel(event.target.value)}
               onBlur={commitLabel}
@@ -95,11 +95,19 @@ export function TierRow({
           ) : (
             <button
               type="button"
-              className="h-full w-full"
+              className="group relative h-full w-full hover:bg-white/20 transition-colors"
               onClick={() => setIsEditing(true)}
               aria-label={editLabelText}
+              title={editLabelText}
             >
               {label}
+              <svg 
+                className="absolute bottom-1 right-1 w-3 h-3 opacity-0 group-hover:opacity-70 transition-opacity" 
+                fill="currentColor" 
+                viewBox="0 0 20 20"
+              >
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+              </svg>
             </button>
           )
         ) : (
