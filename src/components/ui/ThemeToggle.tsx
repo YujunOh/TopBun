@@ -2,7 +2,6 @@
 
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from '@/components/providers/ThemeProvider';
-import { useTranslations } from 'next-intl';
 
 const LABELS: Record<string, string> = {
   light: 'Light mode',
@@ -12,14 +11,6 @@ const LABELS: Record<string, string> = {
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  
-  let t: (key: string) => string;
-  try {
-    t = useTranslations('theme');
-  } catch {
-    // Fallback if translations not available
-    t = (key: string) => LABELS[key] || key;
-  }
 
   const cycleTheme = () => {
     const themes: Array<'light' | 'dark' | 'system'> = ['light', 'dark', 'system'];
@@ -40,7 +31,7 @@ export function ThemeToggle() {
     }
   };
 
-  const label = t(theme) || LABELS[theme];
+  const label = LABELS[theme];
 
   return (
     <button

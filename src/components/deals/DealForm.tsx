@@ -29,10 +29,14 @@ export function DealForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [importance, setImportance] = useState(3);
 
-  const today = new Date().toISOString().split("T")[0];
-  const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-    .toISOString()
-    .split("T")[0];
+  const [dates] = useState(() => {
+    const now = new Date();
+    const today = now.toISOString().split("T")[0];
+    const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0];
+    return { today, nextWeek };
+  });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -190,7 +194,7 @@ export function DealForm() {
                   name="startDate"
                   type="date"
                   required
-                  defaultValue={today}
+                  defaultValue={dates.today}
                   className="w-full rounded-xl bg-surface-light px-4 py-3 text-text outline-none focus:ring-2 focus:ring-primary/50"
                   disabled={isSubmitting}
                 />
@@ -203,7 +207,7 @@ export function DealForm() {
                   name="endDate"
                   type="date"
                   required
-                  defaultValue={nextWeek}
+                  defaultValue={dates.nextWeek}
                   className="w-full rounded-xl bg-surface-light px-4 py-3 text-text outline-none focus:ring-2 focus:ring-primary/50"
                   disabled={isSubmitting}
                 />

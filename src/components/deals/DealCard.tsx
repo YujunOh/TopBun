@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Calendar, Percent, Star, Clock } from "lucide-react";
+import { Calendar, Star } from "lucide-react";
 import Image from "next/image";
 
 interface Deal {

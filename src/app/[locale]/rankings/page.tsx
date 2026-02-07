@@ -11,7 +11,6 @@ export default async function RankingsPage({
 }) {
   const t = await getTranslations('ranking');
   const tSearch = await getTranslations('search');
-  const tReview = await getTranslations('review');
   const locale = await getLocale();
   const { q, category } = await searchParams;
   const searchQuery = q?.trim() || '';
