@@ -3,22 +3,64 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 
-export async function getDeals() {
+interface GetDealsOptions {
+  brand?: string;
+  discount?: string;
+  sort?: string;
+}
+
+export async function getDeals(options: GetDealsOptions = {}) {
   const now = new Date();
+  const { brand, discount, sort } = options;
+
+  // Build where clause
+  const where: {
+    isActive: boolean;
+    endDate: { gte: Date };
+    brand?: string;
+    discountRate?: { gte: number };
+  } = {
+    isActive: true,
+    endDate: { gte: now },
+  };
+
+  if (brand && brand !== 'all') {
+    where.brand = brand;
+  }
+
+  if (discount && discount !== 'all') {
+    where.discountRate = { gte: parseInt(discount) };
+  }
+
+  // Build orderBy clause
+  type OrderByType = { importance?: 'desc' | 'asc'; endDate?: 'desc' | 'asc'; discountRate?: 'desc' | 'asc'; createdAt?: 'desc' | 'asc' };
+  let orderBy: OrderByType[] = [{ importance: "desc" }, { endDate: "asc" }];
+
+  if (sort === 'endDate') {
+    orderBy = [{ endDate: "asc" }];
+  } else if (sort === 'discount') {
+    orderBy = [{ discountRate: "desc" }];
+  } else if (sort === 'newest') {
+    orderBy = [{ createdAt: "desc" }];
+  }
+
   return prisma.deal.findMany({
-    where: {
-      isActive: true,
-      endDate: { gte: now },
-    },
+    where,
     include: {
       burger: true,
       user: { select: { name: true, image: true } },
     },
-    orderBy: [
-      { importance: "desc" },
-      { endDate: "asc" },
-    ],
+    orderBy,
   });
+}
+
+export async function getDealBrands() {
+  const deals = await prisma.deal.findMany({
+    where: { isActive: true },
+    select: { brand: true },
+    distinct: ['brand'],
+  });
+  return deals.map(d => d.brand).filter(Boolean);
 }
 
 export async function getExpiredDeals() {

@@ -316,6 +316,20 @@
       "submitting": "등록 중...",
       "success": "할인정보가 등록되었습니다!",
       "error": "등록에 실패했습니다"
+    },
+    "filter": {
+      "brand": "브랜드",
+      "allBrands": "모든 브랜드",
+      "discount": "할인율",
+      "allDiscounts": "전체",
+      "discount20": "20% 이상",
+      "discount30": "30% 이상",
+      "discount50": "50% 이상",
+      "sortBy": "정렬",
+      "importance": "중요도순",
+      "endDate": "종료임박순",
+      "discount": "할인율순",
+      "newest": "최신순"
     }
   },
    "places": {
@@ -358,6 +372,18 @@
         "burger": "버거",
         "menu": "메뉴판"
       }
+    },
+    "filter": {
+      "brand": "브랜드",
+      "allBrands": "모든 브랜드",
+      "type": "가게 유형",
+      "all": "전체",
+      "handmade": "수제버거",
+      "franchise": "프랜차이즈",
+      "sortBy": "정렬",
+      "rating": "평점순",
+      "reviews": "리뷰많은순",
+      "newest": "최신순"
     }
   },
   "error": {

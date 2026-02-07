@@ -1,7 +1,8 @@
 import { getTranslations } from "next-intl/server";
-import { getDeals } from "@/actions/deals";
+import { getDeals, getDealBrands } from "@/actions/deals";
 import { DealCard } from "@/components/deals/DealCard";
 import { DealForm } from "@/components/deals/DealForm";
+import { DealFilters } from "./DealFilters";
 
 export async function generateMetadata() {
   const t = await getTranslations("deals");
@@ -11,9 +12,22 @@ export async function generateMetadata() {
   };
 }
 
-export default async function DealsPage() {
+export default async function DealsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ brand?: string; discount?: string; sort?: string }>;
+}) {
   const t = await getTranslations("deals");
-  const deals = await getDeals();
+  const { brand, discount, sort } = await searchParams;
+  
+  const activeBrand = brand || 'all';
+  const activeDiscount = discount || 'all';
+  const activeSort = sort || 'importance';
+
+  const [deals, brands] = await Promise.all([
+    getDeals({ brand: activeBrand, discount: activeDiscount, sort: activeSort }),
+    getDealBrands(),
+  ]);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
@@ -23,6 +37,13 @@ export default async function DealsPage() {
       </div>
 
       <DealForm />
+
+      <DealFilters
+        activeBrand={activeBrand}
+        activeDiscount={activeDiscount}
+        activeSort={activeSort}
+        brands={brands}
+      />
 
       <div className="mt-8">
         <h2 className="mb-4 text-xl font-bold text-text">

@@ -316,6 +316,20 @@
       "submitting": "Submitting...",
       "success": "Deal added successfully!",
       "error": "Failed to add deal"
+    },
+    "filter": {
+      "brand": "Brand",
+      "allBrands": "All Brands",
+      "discount": "Discount",
+      "allDiscounts": "All",
+      "discount20": "20%+",
+      "discount30": "30%+",
+      "discount50": "50%+",
+      "sortBy": "Sort by",
+      "importance": "Importance",
+      "endDate": "Ending Soon",
+      "discount": "Highest Discount",
+      "newest": "Newest"
     }
   },
    "places": {
@@ -358,6 +372,18 @@
         "burger": "Burger",
         "menu": "Menu"
       }
+    },
+    "filter": {
+      "brand": "Brand",
+      "allBrands": "All Brands",
+      "type": "Place Type",
+      "all": "All",
+      "handmade": "Handmade",
+      "franchise": "Franchise",
+      "sortBy": "Sort by",
+      "rating": "Highest Rating",
+      "reviews": "Most Reviews",
+      "newest": "Newest"
     }
   },
   "error": {

@@ -1,7 +1,8 @@
 import { getTranslations } from "next-intl/server";
-import { getPlaces } from "@/actions/places";
+import { getPlaces, getPlaceBrands } from "@/actions/places";
 import { PlaceCard } from "@/components/places/PlaceCard";
 import { PlaceForm } from "@/components/places/PlaceForm";
+import { PlaceFilters } from "./PlaceFilters";
 
 export async function generateMetadata() {
   const t = await getTranslations("places");
@@ -11,9 +12,22 @@ export async function generateMetadata() {
   };
 }
 
-export default async function PlacesPage() {
+export default async function PlacesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ brand?: string; type?: string; sort?: string }>;
+}) {
   const t = await getTranslations("places");
-  const places = await getPlaces();
+  const { brand, type, sort } = await searchParams;
+  
+  const activeBrand = brand || 'all';
+  const activeType = type || 'all';
+  const activeSort = sort || 'rating';
+
+  const [places, brands] = await Promise.all([
+    getPlaces({ brand: activeBrand, type: activeType, sort: activeSort }),
+    getPlaceBrands(),
+  ]);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
@@ -23,6 +37,13 @@ export default async function PlacesPage() {
       </div>
 
       <PlaceForm />
+
+      <PlaceFilters
+        activeBrand={activeBrand}
+        activeType={activeType}
+        activeSort={activeSort}
+        brands={brands}
+      />
 
       <div className="mt-8">
         <h2 className="mb-4 text-xl font-bold text-text">

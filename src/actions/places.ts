@@ -3,8 +3,45 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 
-export async function getPlaces() {
+interface GetPlacesOptions {
+  brand?: string;
+  type?: string;
+  sort?: string;
+}
+
+export async function getPlaces(options: GetPlacesOptions = {}) {
+  const { brand, type, sort } = options;
+
+  // Build where clause
+  const where: {
+    brand?: string;
+    isHandmade?: boolean;
+  } = {};
+
+  if (brand && brand !== 'all') {
+    where.brand = brand;
+  }
+
+  if (type === 'handmade') {
+    where.isHandmade = true;
+  } else if (type === 'franchise') {
+    where.isHandmade = false;
+  }
+
+  // Build orderBy clause
+  type OrderByType = { rating?: 'desc' | 'asc'; reviewCount?: 'desc' | 'asc'; createdAt?: 'desc' | 'asc' };
+  let orderBy: OrderByType[] = [{ reviewCount: "desc" }, { rating: "desc" }, { createdAt: "desc" }];
+
+  if (sort === 'rating') {
+    orderBy = [{ rating: "desc" }];
+  } else if (sort === 'reviews') {
+    orderBy = [{ reviewCount: "desc" }];
+  } else if (sort === 'newest') {
+    orderBy = [{ createdAt: "desc" }];
+  }
+
   return prisma.burgerPlace.findMany({
+    where,
     include: {
       user: { select: { name: true, image: true } },
       photos: {
@@ -15,12 +52,16 @@ export async function getPlaces() {
         select: { photos: true, events: true },
       },
     },
-    orderBy: [
-      { reviewCount: "desc" },
-      { rating: "desc" },
-      { createdAt: "desc" },
-    ],
+    orderBy,
   });
+}
+
+export async function getPlaceBrands() {
+  const places = await prisma.burgerPlace.findMany({
+    select: { brand: true },
+    distinct: ['brand'],
+  });
+  return places.map(p => p.brand).filter((b): b is string => b !== null);
 }
 
 export async function getPlaceById(id: number) {
