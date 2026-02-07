@@ -120,6 +120,9 @@ model Deal {
   user        User?     @relation(fields: [userId], references: [id])
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([endDate])
+  @@index([isActive])
 }
 
 // 버거 가게/매장 정보
@@ -143,6 +146,9 @@ model BurgerPlace {
   events      BurgerEvent[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([isHandmade])
+  @@index([rating])
 }
 
 // 인증 사진
