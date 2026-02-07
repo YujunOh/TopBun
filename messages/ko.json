@@ -287,15 +287,17 @@
       "kakao": "카카오"
     }
   },
-  "deals": {
-    "title": "할인정보",
-    "subtitle": "버거 할인 & 프로모션 정보를 공유하세요",
-    "addDeal": "할인정보 등록",
-    "activeDeals": "진행 중인 할인",
-    "expiredDeals": "종료된 할인",
-    "noDeals": "등록된 할인정보가 없습니다",
-    "source": "출처",
-    "loginRequired": "할인정보를 등록하려면 로그인하세요",
+   "deals": {
+     "title": "할인정보",
+     "subtitle": "버거 할인 & 프로모션 정보를 공유하세요",
+     "addDeal": "할인정보 등록",
+     "activeDeals": "진행 중인 할인",
+     "expiredDeals": "종료된 할인",
+     "noDeals": "등록된 할인정보가 없습니다",
+     "noDealsMessage": "아직 등록된 할인정보가 없어요! 첫 번째 할인정보를 공유해보세요.",
+     "noDealsAction": "첫 번째 할인정보 등록하기",
+     "source": "출처",
+     "loginRequired": "할인정보를 등록하려면 로그인하세요",
     "form": {
       "title": "제목",
       "titlePlaceholder": "예: 버거킹 와퍼 50% 할인",
@@ -316,17 +318,19 @@
       "error": "등록에 실패했습니다"
     }
   },
-  "places": {
-    "title": "버거코치",
-    "subtitle": "숨은 버거 맛집을 공유하고 인증 사진을 올려보세요",
-    "addPlace": "가게 등록",
-    "registeredPlaces": "등록된 가게",
-    "noPlaces": "아직 등록된 가게가 없습니다",
-    "handmade": "수제버거",
-    "naverMap": "네이버지도",
-    "kakaoMap": "카카오맵",
-    "photoCount": "사진 {count}장",
-    "loginRequired": "가게를 등록하려면 로그인하세요",
+   "places": {
+     "title": "버거코치",
+     "subtitle": "숨은 버거 맛집을 공유하고 인증 사진을 올려보세요",
+     "addPlace": "가게 등록",
+     "registeredPlaces": "등록된 가게",
+     "noPlaces": "아직 등록된 가게가 없습니다",
+     "noPlacesMessage": "아직 등록된 가게가 없어요! 커뮤니티를 위해 숨은 맛집을 공유해보세요.",
+     "noPlacesAction": "첫 번째 가게 등록하기",
+     "handmade": "수제버거",
+     "naverMap": "네이버지도",
+     "kakaoMap": "카카오맵",
+     "photoCount": "사진 {count}장",
+     "loginRequired": "가게를 등록하려면 로그인하세요",
     "form": {
       "name": "가게명",
       "namePlaceholder": "예: 다운타우너 성수점",

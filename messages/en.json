@@ -287,15 +287,17 @@
       "kakao": "Kakao"
     }
   },
-  "deals": {
-    "title": "Deals",
-    "subtitle": "Share burger deals & promotions",
-    "addDeal": "Add Deal",
-    "activeDeals": "Active Deals",
-    "expiredDeals": "Expired Deals",
-    "noDeals": "No deals available",
-    "source": "Source",
-    "loginRequired": "Please login to add deals",
+   "deals": {
+     "title": "Deals",
+     "subtitle": "Share burger deals & promotions",
+     "addDeal": "Add Deal",
+     "activeDeals": "Active Deals",
+     "expiredDeals": "Expired Deals",
+     "noDeals": "No deals available",
+     "noDealsMessage": "No deals yet! Be the first to share an amazing burger deal.",
+     "noDealsAction": "Add the first deal",
+     "source": "Source",
+     "loginRequired": "Please login to add deals",
     "form": {
       "title": "Title",
       "titlePlaceholder": "e.g., Burger King Whopper 50% off",
@@ -316,17 +318,19 @@
       "error": "Failed to add deal"
     }
   },
-  "places": {
-    "title": "Burger Coach",
-    "subtitle": "Share hidden burger gems and upload verified photos",
-    "addPlace": "Add Place",
-    "registeredPlaces": "Registered Places",
-    "noPlaces": "No places registered yet",
-    "handmade": "Handmade",
-    "naverMap": "Naver Map",
-    "kakaoMap": "Kakao Map",
-    "photoCount": "{count} photos",
-    "loginRequired": "Please login to add places",
+   "places": {
+     "title": "Burger Coach",
+     "subtitle": "Share hidden burger gems and upload verified photos",
+     "addPlace": "Add Place",
+     "registeredPlaces": "Registered Places",
+     "noPlaces": "No places registered yet",
+     "noPlacesMessage": "No burger spots yet! Help the community discover hidden gems.",
+     "noPlacesAction": "Register the first place",
+     "handmade": "Handmade",
+     "naverMap": "Naver Map",
+     "kakaoMap": "Kakao Map",
+     "photoCount": "{count} photos",
+     "loginRequired": "Please login to add places",
     "form": {
       "name": "Place Name",
       "namePlaceholder": "e.g., Downtowner Seongsu",

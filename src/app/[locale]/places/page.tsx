@@ -29,11 +29,48 @@ export default async function PlacesPage() {
           {t("registeredPlaces")} ({places.length})
         </h2>
 
-        {places.length === 0 ? (
-          <div className="rounded-2xl bg-surface p-8 text-center">
-            <p className="text-text-muted">{t("noPlaces")}</p>
-          </div>
-        ) : (
+         {places.length === 0 ? (
+           <div className="rounded-2xl bg-surface p-12 text-center">
+             <div className="mb-4 flex justify-center">
+               <div className="rounded-full bg-primary/10 p-4">
+                 <svg
+                   className="h-8 w-8 text-primary"
+                   fill="none"
+                   stroke="currentColor"
+                   viewBox="0 0 24 24"
+                 >
+                   <path
+                     strokeLinecap="round"
+                     strokeLinejoin="round"
+                     strokeWidth={2}
+                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                   />
+                   <path
+                     strokeLinecap="round"
+                     strokeLinejoin="round"
+                     strokeWidth={2}
+                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                   />
+                 </svg>
+               </div>
+             </div>
+             <h3 className="mb-2 text-lg font-semibold text-text">
+               {t("noPlaces")}
+             </h3>
+             <p className="mb-6 text-text-muted">{t("noPlacesMessage")}</p>
+             <button
+               onClick={() => {
+                 const formElement = document.querySelector(
+                   "[data-testid='place-form']"
+                 );
+                 formElement?.scrollIntoView({ behavior: "smooth" });
+               }}
+               className="inline-block rounded-lg bg-primary px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-primary/90"
+             >
+               {t("noPlacesAction")}
+             </button>
+           </div>
+         ) : (
           <div className="grid gap-4 sm:grid-cols-2">
             {places.map((place) => (
               <PlaceCard key={place.id} place={place} />
