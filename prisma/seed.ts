@@ -61,11 +61,145 @@ async function main() {
     { name: '브루클린 버거', nameEn: 'Brooklyn Burger', brand: '브루클린 더 버거 조인트', brandEn: 'Brooklyn The Burger Joint', description: '뉴욕 스타일 수제버거', descriptionEn: 'New York style handmade burger', category: 'handmade', burgerType: 'handmade' },
   ];
 
+  const createdBurgers = [];
   for (const burger of burgers) {
-    await prisma.burger.create({ data: burger });
+    const created = await prisma.burger.create({ data: burger });
+    createdBurgers.push(created);
   }
 
   console.log(`Seeded ${burgers.length} burgers`);
+
+  // Seed deals
+  const now = new Date();
+  const deals = [
+    // 맥도날드 deals
+    {
+      title: '빅맥 2개 구매 시 1개 무료',
+      description: '빅맥 2개 구매 시 1개를 무료로 제공하는 특별 할인',
+      brand: '맥도날드',
+      discountRate: 33,
+      originalPrice: 13900,
+      dealPrice: 9300,
+      startDate: now,
+      endDate: new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000), // 7 days
+      importance: 5,
+      isActive: true,
+      source: '공식 앱',
+      burgerId: createdBurgers[0].id, // 빅맥
+    },
+    {
+      title: '쿼터파운더 치즈 20% 할인',
+      description: '쿼터파운더 치즈 구매 시 20% 할인 이벤트',
+      brand: '맥도날드',
+      discountRate: 20,
+      originalPrice: 11900,
+      dealPrice: 9520,
+      startDate: now,
+      endDate: new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000), // 14 days
+      importance: 4,
+      isActive: true,
+      source: '인스타그램',
+      burgerId: createdBurgers[1].id, // 쿼터파운더 치즈
+    },
+
+    // 버거킹 deals
+    {
+      title: '와퍼 세트 30% 할인',
+      description: '와퍼 세트 구매 시 30% 할인 (음료 + 감튀 포함)',
+      brand: '버거킹',
+      discountRate: 30,
+      originalPrice: 16900,
+      dealPrice: 11830,
+      startDate: now,
+      endDate: new Date(now.getTime() + 10 * 24 * 60 * 60 * 1000), // 10 days
+      importance: 5,
+      isActive: true,
+      source: '공식 앱',
+      burgerId: createdBurgers[5].id, // 와퍼
+    },
+    {
+      title: '콰트로 치즈와퍼 50% 할인',
+      description: '프리미엄 콰트로 치즈와퍼 한정 50% 할인',
+      brand: '버거킹',
+      discountRate: 50,
+      originalPrice: 18900,
+      dealPrice: 9450,
+      startDate: new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000), // starts in 3 days
+      endDate: new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000), // 5 days
+      importance: 4,
+      isActive: false, // upcoming deal
+      source: '공식 웹사이트',
+      burgerId: createdBurgers[7].id, // 콰트로 치즈와퍼
+    },
+
+    // 롯데리아 deals
+    {
+      title: '불고기버거 2개 + 음료 세트',
+      description: '불고기버거 2개와 음료를 함께 구매하면 25% 할인',
+      brand: '롯데리아',
+      discountRate: 25,
+      originalPrice: 18000,
+      dealPrice: 13500,
+      startDate: now,
+      endDate: new Date(now.getTime() + 21 * 24 * 60 * 60 * 1000), // 21 days
+      importance: 4,
+      isActive: true,
+      source: '공식 앱',
+      burgerId: createdBurgers[10].id, // 불고기버거
+    },
+    {
+      title: '한우불고기버거 프리미엄 세트',
+      description: '한우 패티의 프리미엄 불고기버거 세트 10% 할인',
+      brand: '롯데리아',
+      discountRate: 10,
+      originalPrice: 22000,
+      dealPrice: 19800,
+      startDate: now,
+      endDate: new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000), // 30 days
+      importance: 3,
+      isActive: true,
+      source: '인스타그램',
+      burgerId: createdBurgers[12].id, // 한우불고기버거
+    },
+
+    // 맘스터치 deals
+    {
+      title: '싸이버거 + 감튀 세트 15% 할인',
+      description: '인기 메뉴 싸이버거와 감튀 세트 특가',
+      brand: '맘스터치',
+      discountRate: 15,
+      originalPrice: 14500,
+      dealPrice: 12325,
+      startDate: now,
+      endDate: new Date(now.getTime() + 9 * 24 * 60 * 60 * 1000), // 9 days
+      importance: 4,
+      isActive: true,
+      source: '공식 앱',
+      burgerId: createdBurgers[20].id, // 싸이버거
+    },
+
+    // KFC deals
+    {
+      title: '징거버거 2개 구매 시 1개 무료',
+      description: '매콤한 징거버거 2개 구매 시 1개를 무료로 제공',
+      brand: 'KFC',
+      discountRate: 33,
+      originalPrice: 12900,
+      dealPrice: 8600,
+      startDate: now,
+      endDate: new Date(now.getTime() + 6 * 24 * 60 * 60 * 1000), // 6 days
+      importance: 5,
+      isActive: true,
+      source: '공식 앱',
+      burgerId: createdBurgers[35].id, // 징거버거
+    },
+  ];
+
+  for (const deal of deals) {
+    await prisma.deal.create({ data: deal });
+  }
+
+  console.log(`Seeded ${deals.length} deals`);
 }
 
 main()
