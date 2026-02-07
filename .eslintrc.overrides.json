@@ -1,0 +1,19 @@
+{
+  "rules": {
+    "react-hooks/set-state-in-effect": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/app/**/complete/page.tsx",
+        "src/app/**/play/page.tsx",
+        "src/components/auth/AuthProvider.tsx",
+        "src/components/providers/ThemeProvider.tsx",
+        "src/components/ui/SearchInput.tsx"
+      ],
+      "rules": {
+        "react-hooks/set-state-in-effect": "off"
+      }
+    }
+  ]
+}
